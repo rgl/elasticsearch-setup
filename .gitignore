@@ -1,0 +1,5 @@
+out/
+vendor/*
+*.exe
+*.jar
+*.dll
