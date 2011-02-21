@@ -27,6 +27,26 @@ NB If the above step complains about a missing unzip.exe or wget.exe, you
         mingw-get install msys-unzip
         mingw-get install msys-wget
 
+
+The setup will do the following when installing the application:
+
+ * install all files into Program Files (the user can change the
+   actual location)
+
+ * create the elasticsearch Windows account (with Logon as service
+   privilege)
+
+ * install a Windows Service to automatically start elasticsearch
+   (run as the elasticsearch account) at boot (but has to be manually
+   started after install...).
+
+ * grant the elasticsearch account:
+     * read permissions to the "config" directory.
+     * full permissions to the "data" and "logs" directories.
+
+ * create a bunch of Start Menu entries (link to home page, guide, etc).
+
+
 The setup uses SetACL.exe to grant NTFS file permissions to the
 elasticsearch account. SetACL can be download from:
 
@@ -36,3 +56,4 @@ The setup uses procrun.exe to launch elasticsearch as a Windows service.
 procrun is included in the Apache Commons Daemon project available at:
 
     http://commons.apache.org/daemon/
+
