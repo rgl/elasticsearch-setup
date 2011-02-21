@@ -42,7 +42,6 @@ AppSupportURL=https://github.com/rgl/elasticsearch-setup
 AppUpdatesURL=https://github.com/rgl/elasticsearch-setup
 DefaultDirName={pf}\elasticsearch
 DefaultGroupName=elasticsearch
-LicenseFile={#ESPath}\LICENSE.txt
 OutputDir=.
 OutputBaseFilename=elasticsearch-{#AppVersion}-setup-{#Bits}-bit
 SetupIconFile=elasticsearch.ico
