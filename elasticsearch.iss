@@ -14,7 +14,7 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "0.15.0"
+#define AppVersion "0.15.1"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
@@ -67,7 +67,7 @@ Source: "vendor\SetACL-2.2.0\SetACL.exe"; DestDir: "{tmp}"; Flags: deleteafterin
 Source: "vendor\commons-daemon-1.0.5-bin-windows\{#Prunsrv}"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
 Source: "{#ESPath}\bin\elasticsearch.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
-Source: "{#ESPath}\lib\elasticsearch-0.15.0.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\elasticsearch-{#AppVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jline-0.9.94.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jna-3.2.7.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\log4j-1.2.15.jar"; DestDir: "{app}\lib"
