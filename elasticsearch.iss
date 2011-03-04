@@ -113,6 +113,7 @@ Filename: "{app}\lib\elasticsearchw-uninstall.cmd"; WorkingDir: "{app}"; Flags: 
 [Code]
 #include "service.pas"
 #include "service-account.pas"
+#include "java.pas"
 
 const
   SERVICE_ACCOUNT_NAME = '{#ServiceAccountName}';
@@ -136,6 +137,10 @@ end;
 
 function InitializeSetup(): boolean;
 begin
+  Result := RequireJava('1.6');
+  if not Result then
+    Exit;
+
   if IsServiceRunning(SERVICE_NAME) then
   begin
     MsgBox('Please stop the ' + SERVICE_NAME + ' service before running this install', mbError, MB_OK);
