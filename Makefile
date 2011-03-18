@@ -37,7 +37,7 @@ elasticsearchw.jar: src/org/elasticsearch/service/*.java
 	jar cvf $@ -C out .
 
 setup-helper.dll: src/setup-helper.c
-	gcc -o $@ -shared -std=gnu99 -pedantic -Os -Wall -m32 -Wl,--kill-at $< -lnetapi32
+	gcc -o $@ -shared -std=gnu99 -pedantic -Os -Wall -m32 -Wl,--kill-at $< -lnetapi32 -ladvapi32
 	strip $@
 
 setup: setup-helper.dll vendor jar
