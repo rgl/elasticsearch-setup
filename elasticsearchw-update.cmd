@@ -10,14 +10,41 @@ rem Initial memory pool size in MB.
 set JVM_MS=256
 rem Maximum memory pool size in MB.
 set JVM_MX=1024
+
 rem Other options.
 rem NB the pound (#) and semicolon (;) are separator characters.
-set JVM_OPTIONS=-Djline.enabled=false^
-#-XX:+AggressiveOpts^
-#-XX:+UseParNewGC^
-#-XX:+UseConcMarkSweepGC^
-#-XX:+CMSParallelRemarkEnabled^
-#-XX:+HeapDumpOnOutOfMemoryError
+set JVM_OPTIONS=-Djline.enabled=false
+
+REM Enable aggressive optimizations in the JVM
+REM    - Disabled by default as it might cause the JVM to crash
+REM set JVM_OPTIONS=%JVM_OPTIONS% -XX:+AggressiveOpts
+
+REM Enable reference compression, reducing memory overhead on 64bit JVMs
+REM    - Disabled by default as it is not stable for Sun JVM before 6u19
+REM set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCompressedOops
+
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseParNewGC
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseConcMarkSweepGC
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:+CMSParallelRemarkEnabled
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:SurvivorRatio=8
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:MaxTenuringThreshold=1
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:CMSInitiatingOccupancyFraction=75
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCMSInitiatingOccupancyOnly
+
+REM GC logging options -- uncomment to enable
+REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCDetails
+REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCTimeStamps
+REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintClassHistogram
+REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintTenuringDistribution
+REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCApplicationStoppedTime
+REM JVM_OPTIONS=%JVM_OPTIONS% -Xloggc:/var/log/elasticsearch/gc.log
+
+REM Causes the JVM to dump its heap on OutOfMemory.
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:+HeapDumpOnOutOfMemoryError
+REM The path to the heap dump location, note directory must exists and have enough
+REM space for a full heap dump.
+REM JVM_OPTIONS=%JVM_OPTIONS% -XX:HeapDumpPath=$ES_HOME/logs/heapdump.hprof
+
 
 set JVM_CLASSPATH=%ES_LIB%\*;%ES_LIB%\sigar\*
 
