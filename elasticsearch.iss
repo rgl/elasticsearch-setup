@@ -14,7 +14,7 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "0.16.0"
+#define AppVersion "0.16.2"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
