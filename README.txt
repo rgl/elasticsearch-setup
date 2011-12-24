@@ -1,11 +1,11 @@
 This directory contains the files needed to create the elasticsearch setup
 program for Windows.
 
-You first need to install Unicode Inno Setup (the QuickStart Pack) from:
+You first need to install Unicode Inno Setup from:
 
     http://www.jrsoftware.org/isdl.php#qsp
 
-NB Get the ispack-5.4.0-unicode.exe file.
+NB Get the isetup-5.4.3-unicode.exe file.
 
 And then MinGW and msys by following the guide at:
 

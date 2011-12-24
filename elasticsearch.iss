@@ -14,7 +14,7 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "0.16.2"
+#define AppVersion "0.18.6"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
@@ -64,18 +64,18 @@ Name: "{app}\logs"
 [Files]
 Source: "setup-helper.dll"; DestDir: "{app}"
 Source: "vendor\SetACL-2.2.0\SetACL.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall ignoreversion
-Source: "vendor\commons-daemon-1.0.5-bin-windows\{#Prunsrv}"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
+Source: "vendor\commons-daemon-1.0.8-bin-windows\{#Prunsrv}"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
 Source: "{#ESPath}\bin\elasticsearch.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\lib\elasticsearch-{#AppVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jline-0.9.94.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jna-3.2.7.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\log4j-1.2.15.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-analyzers-3.1.0.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-core-3.1.0.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-highlighter-3.1.0.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-memory-3.1.0.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-queries-3.1.0.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\log4j-1.2.16.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-analyzers-3.5.0.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-core-3.5.0.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-highlighter-3.5.0.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-memory-3.5.0.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-queries-3.5.0.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\sigar\sigar-1.6.4.jar"; DestDir: "{app}\lib\sigar"
 Source: "{#ESPath}\lib\sigar\sigar-amd64-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion
 Source: "{#ESPath}\lib\sigar\sigar-x86-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion

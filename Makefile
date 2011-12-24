@@ -1,12 +1,12 @@
 X64?= false
 
-ES_VERSION=0.16.2
+ES_VERSION=0.18.6
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
 ES_JAR=$(ES_LIB)/$(ES_NAME).jar
 
-COMMONS_DAEMON_VERSION=1.0.5
+COMMONS_DAEMON_VERSION=1.0.8
 COMMONS_DAEMON_NAME=commons-daemon-$(COMMONS_DAEMON_VERSION)-bin-windows
 COMMONS_DAEMON_HOME=vendor/$(COMMONS_DAEMON_NAME)
 ifeq ($(X64),false)
@@ -51,7 +51,7 @@ $(ES_JAR):
 	unzip -d vendor $(ES_HOME).zip
 
 $(COMMONS_DAEMON_PRUNSRV):
-	wget -O $(COMMONS_DAEMON_HOME).zip http://apache.org/dist/commons/daemon/binaries/$(COMMONS_DAEMON_VERSION)/windows/$(COMMONS_DAEMON_NAME).zip
+	wget -O $(COMMONS_DAEMON_HOME).zip http://apache.org/dist/commons/daemon/binaries/windows/$(COMMONS_DAEMON_NAME).zip
 	(cd vendor && md5sum -c $(COMMONS_DAEMON_NAME).zip.md5)
 	unzip -d $(COMMONS_DAEMON_HOME) $(COMMONS_DAEMON_HOME).zip
 
