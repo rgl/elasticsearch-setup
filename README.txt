@@ -3,7 +3,7 @@ program for Windows.
 
 You first need to install Unicode Inno Setup from:
 
-    http://www.jrsoftware.org/isdl.php#qsp
+    http://www.jrsoftware.org/isdl.php#stable
 
 NB Get the isetup-5.4.3-unicode.exe file.
 
