@@ -70,9 +70,9 @@ begin
         end;
     end;
 
-    if MsgBox('This tool requires Java Runtime Environment ' + MinimalVersion + ' or newer to run. Please download and install JRE and run this setup again.' + #13#10#13#10 + 'Do you want to open the download page now?', mbConfirmation, MB_YESNO) = idYes then
+    if MsgBox('This tool requires Java Runtime Environment (JRE) ' + MinimalVersion + ' or newer to run. Please download and install JRE and run this setup again.' + #13#10#13#10 + 'Do you want to open the download page now?', mbConfirmation, MB_YESNO) = idYes then
     begin
-        ShellExec('open', 'http://www.java.com/getjava/', '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
+        ShellExec('open', 'http://www.oracle.com/technetwork/java/javase/downloads/', '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
     end;
 
     Result := false;
