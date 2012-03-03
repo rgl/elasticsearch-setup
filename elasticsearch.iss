@@ -1,9 +1,5 @@
 ; elasticsearch for Windows Setup Script created by Rui Lopes (ruilopes.com).
 ;
-; TODO there seems to be a bug with procrun install, it will append data to the
-;       HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Apache Software Foundation\Procrun 2.0\elasticsearch\Parameters\Java\@Options
-;      instead of override it. this can be problematic if we install the
-;      application over an existing installation
 ; TODO do not override existing configuration files. 
 ; TODO after uninstall, setup-helper.dll is left behind... figure out why its
 ;      not being automatically deleted.
@@ -14,7 +10,7 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "0.18.7"
+#define AppVersion "0.19.0"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
@@ -64,12 +60,11 @@ Name: "{app}\logs"
 [Files]
 Source: "setup-helper.dll"; DestDir: "{app}"
 Source: "vendor\SetACL-2.2.0\SetACL.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall ignoreversion
-Source: "vendor\commons-daemon-1.0.8-bin-windows\{#Prunsrv}"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
+Source: "vendor\commons-daemon-1.0.10-bin-windows\{#Prunsrv}"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
 Source: "{#ESPath}\bin\elasticsearch.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\lib\elasticsearch-{#AppVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\jline-0.9.94.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\jna-3.2.7.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\jna-3.3.0.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\log4j-1.2.16.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-analyzers-3.5.0.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-core-3.5.0.jar"; DestDir: "{app}\lib"

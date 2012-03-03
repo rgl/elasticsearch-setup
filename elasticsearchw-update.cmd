@@ -10,10 +10,14 @@ rem Initial memory pool size in MB.
 set JVM_MS=256
 rem Maximum memory pool size in MB.
 set JVM_MX=1024
+rem Thread stack size in KB.
+set JVM_SS=128
 
 rem Other options.
 rem NB the pound (#) and semicolon (;) are separator characters.
-set JVM_OPTIONS=-Djline.enabled=false
+
+rem Force the JVM to use IPv4 stack
+rem JVM_OPTIONS=%JVM_OPTIONS% -Djava.net.preferIPv4Stack=true
 
 REM Enable aggressive optimizations in the JVM
 REM    - Disabled by default as it might cause the JVM to crash
@@ -25,11 +29,12 @@ REM set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCompressedOops
 
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseParNewGC
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseConcMarkSweepGC
-set JVM_OPTIONS=%JVM_OPTIONS% -XX:+CMSParallelRemarkEnabled
-set JVM_OPTIONS=%JVM_OPTIONS% -XX:SurvivorRatio=8
-set JVM_OPTIONS=%JVM_OPTIONS% -XX:MaxTenuringThreshold=1
+
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:CMSInitiatingOccupancyFraction=75
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCMSInitiatingOccupancyOnly
+
+REM When running under Java 7
+REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCondCardMark
 
 REM GC logging options -- uncomment to enable
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCDetails
@@ -59,7 +64,9 @@ set JVM_CLASSPATH=%ES_LIB%\*;%ES_LIB%\sigar\*
   --Classpath "%JVM_CLASSPATH%" ^
   --JvmMs %JVM_MS% ^
   --JvmMx %JVM_MX% ^
-  --JvmOptions "%JVM_OPTIONS%" ^
+  --JvmSs %JVM_SS% ^
+  --JvmOptions "" ^
+  %JVM_OPTIONS: = ++JvmOptions % ^
   ++JvmOptions "-Des.path.home=%ES_HOME%"
 
 rem These settings are saved in the Windows Registry at:
