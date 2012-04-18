@@ -130,7 +130,7 @@ end;
 
 function InitializeSetup(): boolean;
 begin
-  Result := RequireJava('1.7');
+  Result := RequireJava('1.6');
   if not Result then
     Exit;
 

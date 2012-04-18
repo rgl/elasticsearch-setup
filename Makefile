@@ -33,7 +33,7 @@ jar: elasticsearchw.jar
 
 elasticsearchw.jar: src/org/elasticsearch/service/*.java
 	mkdir -p out
-	javac -d out -cp "$(ES_LIB)/elasticsearch-$(ES_VERSION).jar" src/org/elasticsearch/service/*.java	
+	javac -d out -target 6 -source 6 -cp "$(ES_LIB)/elasticsearch-$(ES_VERSION).jar" src/org/elasticsearch/service/*.java	
 	jar cvf $@ -C out .
 
 setup-helper.dll: src/setup-helper.c
