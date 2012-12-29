@@ -1,3 +1,9 @@
+Download the binaries from:
+
+  http://ruilopes.com/elasticsearch-setup/
+
+------
+
 This directory contains the files needed to create the elasticsearch setup
 program for Windows.
 
