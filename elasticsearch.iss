@@ -10,7 +10,7 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "0.20.1"
+#define AppVersion "0.20.2"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
@@ -66,11 +66,11 @@ Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\lib\elasticsearch-{#AppVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jna-3.3.0.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\log4j-1.2.17.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-analyzers-3.6.1.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-core-3.6.1.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-highlighter-3.6.1.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-memory-3.6.1.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-queries-3.6.1.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-analyzers-3.6.2.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-core-3.6.2.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-highlighter-3.6.2.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-memory-3.6.2.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-queries-3.6.2.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\snappy-java-1.0.4.1.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\sigar\sigar-1.6.4.jar"; DestDir: "{app}\lib\sigar"
 Source: "{#ESPath}\lib\sigar\sigar-amd64-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion

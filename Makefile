@@ -1,6 +1,6 @@
 X64?= false
 
-ES_VERSION=0.20.1
+ES_VERSION=0.20.2
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -46,7 +46,7 @@ setup: setup-helper.dll vendor jar
 vendor: $(ES_JAR) $(COMMONS_DAEMON_PRUNSRV)
 
 $(ES_JAR):
-	wget -O $(ES_HOME).zip http://cloud.github.com/downloads/elasticsearch/elasticsearch/elasticsearch-$(ES_VERSION).zip
+	wget -O $(ES_HOME).zip http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$(ES_VERSION).zip
 	(cd vendor && md5sum -c $(ES_NAME).zip.md5)
 	unzip -d vendor $(ES_HOME).zip
 
