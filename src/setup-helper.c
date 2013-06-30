@@ -46,6 +46,7 @@
 #include <sddl.h>
 #include <wchar.h>
 #include <userenv.h>
+#include <ntstatus.h>
 
 
 static int addAccountRight(LPWSTR accountName, LPWSTR rightName);
@@ -160,7 +161,10 @@ static int addRemoveAccountRight(LPWSTR accountName, LPWSTR rightName, BOOL add)
         // NB even though the documentation says LsaRemoveAccountRights will
         //    remove the account, it does not really remove it... so we
         //    remove it manually bellow.
-        if (STATUS_SUCCESS != LsaRemoveAccountRights(lsaHandle, sid, TRUE, NULL, 0)) {
+        // NB if for some reason the account does not have any rights, we
+        //    accept that as success.
+        NTSTATUS status = LsaRemoveAccountRights(lsaHandle, sid, TRUE, NULL, 0);
+        if (STATUS_SUCCESS != status && STATUS_OBJECT_NAME_NOT_FOUND != status) {
             LsaClose(lsaHandle);
             return -6;
         }
@@ -202,4 +206,3 @@ static int addRemoveAccountRight(LPWSTR accountName, LPWSTR rightName, BOOL add)
 
     return 0;
 }
-

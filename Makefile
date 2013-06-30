@@ -40,6 +40,12 @@ setup-helper.dll: src/setup-helper.c
 	gcc -o $@ -shared -std=gnu99 -pedantic -Os -Wall -m32 -Wl,--kill-at $< -lnetapi32 -ladvapi32 -luserenv
 	strip $@
 
+# NB when you run this outside an Administrator console, UAC will trigger
+#    because this executable has the word "setup" in its name.
+setup-helper-console.exe: src/setup-helper-console.c src/setup-helper.c
+	gcc -o $@ -std=gnu99 -pedantic -Os -Wall -m32 src/setup-helper-console.c -lnetapi32 -ladvapi32 -luserenv
+	strip $@
+
 setup: setup-helper.dll vendor jar
 	$(ISCC) elasticsearch.iss $(ISCCOPT)
 
