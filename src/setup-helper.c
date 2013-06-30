@@ -45,50 +45,11 @@
 #include <ntsecapi.h>
 #include <sddl.h>
 #include <wchar.h>
+#include <userenv.h>
 
 
 static int addAccountRight(LPWSTR accountName, LPWSTR rightName);
 static int addRemoveAccountRight(LPWSTR accountName, LPWSTR rightName, BOOL add);
-
-
-// NB unfortunately MinGW (32-bit) userenv.h does not define DeleteProfile
-//    so we have to define it ourselfs.
-// NB unfortunately MinGW-w64 -luserenv is currently borked so we have to
-//    load DeleteProfile ourselfs.
-//    NB this is fixed at http://sourceforge.net/apps/trac/mingw-w64/changeset/4079
-//       but as time of writting no binaries are available yet. when there are
-//       we should remove all of this.
-#ifndef DeleteProfile
-#define DeleteProfile g_deleteProfile
-
-typedef BOOL WINAPI (*DeleteProfileWP)(LPCWSTR,LPCWSTR,LPCWSTR);
-
-static DeleteProfileWP g_deleteProfile;
-static HMODULE g_userEnvLibrary;
-
-BOOL WINAPI DllMain(HINSTANCE module, DWORD reason, LPVOID reserved)
-{
-    switch (reason) {
-        case DLL_PROCESS_ATTACH:
-            g_userEnvLibrary = LoadLibraryA("userenv");
-            if (!g_userEnvLibrary)
-                return FALSE;
-            g_deleteProfile = GetProcAddress(g_userEnvLibrary, "DeleteProfileW");
-            if (!g_deleteProfile)
-                return FALSE;
-            break;
-        case DLL_PROCESS_DETACH:
-            FreeLibrary(g_userEnvLibrary);
-            break;
-        case DLL_THREAD_ATTACH:
-            break;
-        case DLL_THREAD_DETACH:
-            break;
-    }
-
-    return TRUE;
-}
-#endif
 
 
 /* Creates a new service account (with "log on as a service" user right).
