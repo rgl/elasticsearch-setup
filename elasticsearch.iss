@@ -10,8 +10,8 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "0.90.2"
-#define LuceneVersion "4.3.1"
+#define AppVersion "0.90.3"
+#define LuceneVersion "4.4.0"
 #define PrunsrvVersion "1.0.15"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
@@ -76,6 +76,7 @@ Source: "{#ESPath}\lib\lucene-grouping-{#LuceneVersion}.jar"; DestDir: "{app}\li
 Source: "{#ESPath}\lib\lucene-highlighter-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-join-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-memory-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\lucene-misc-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-queries-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-queryparser-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-sandbox-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
