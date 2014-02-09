@@ -59,8 +59,8 @@ set JVM_CLASSPATH=%ES_LIB%\*;%ES_LIB%\sigar\*
   --StdError auto ^
   --LogPath "%ES_HOME%\logs" ^
   --StartPath "%ES_HOME%" ^
-  --StartMode=jvm --StartClass=org.elasticsearch.bootstrap.ElasticSearch --StartMethod=main ^
-  --StopMode=jvm --StopClass=org.elasticsearch.bootstrap.ElasticSearch --StopMethod=close ^
+  --StartMode=jvm --StartClass=org.elasticsearch.bootstrap.Elasticsearch --StartMethod=main ^
+  --StopMode=jvm --StopClass=org.elasticsearch.bootstrap.Elasticsearch --StopMethod=close ^
   --Classpath "%JVM_CLASSPATH%" ^
   --JvmMs %JVM_MS% ^
   --JvmMx %JVM_MX% ^

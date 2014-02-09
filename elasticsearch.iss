@@ -10,7 +10,7 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "0.90.11"
+#define AppVersion "1.0.0.RC2"
 #define LuceneVersion "4.6.1"
 #define PrunsrvVersion "1.0.15"
 #define ESPath "vendor\elasticsearch-" + AppVersion
@@ -32,8 +32,7 @@ ArchitecturesAllowed={#ArchitecturesAllowed}
 AppID={{BBFE3D83-0850-4E17-8BCC-860945E4F485}
 AppName=elasticsearch
 AppVersion={#AppVersion}
-VersionInfoVersion={#AppVersion}
-;AppVerName=Redis {#AppVersion}
+VersionInfoVersion=1.0.0
 AppPublisher=rgl
 AppPublisherURL=https://github.com/rgl/elasticsearch-setup
 AppSupportURL=https://github.com/rgl/elasticsearch-setup
