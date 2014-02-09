@@ -59,6 +59,15 @@ The setup will do the following when installing the application:
  * create a bunch of Start Menu entries (link to home page, guide, etc).
 
 
+If you need to modify any service related setting (e.g. the maximum
+memory used by the JVM) edit the file:
+
+    lib\elasticsearchw-update.cmd
+
+And then run it in a Administrator Command Prompt.
+
+------
+
 The setup uses SetACL.exe to grant NTFS file permissions to the
 elasticsearch account. SetACL can be download from:
 
