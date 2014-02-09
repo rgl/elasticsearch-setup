@@ -11,11 +11,17 @@ You first need to install Unicode Inno Setup from:
 
     http://www.jrsoftware.org/isdl.php#stable
 
-NB Get the isetup-5.4.3-unicode.exe file.
+NB Get the isetup-5.5.4-unicode.exe file.
 
-And then MinGW and msys by following the guide at:
+And then, only, msys from MinGW by following the guide at:
 
     http://blog.ruilopes.com/post/2143557964/sane-shell-environment-on-windows
+
+And then install the TDM64 bundle from:
+
+    http://tdm-gcc.tdragon.net/
+
+And add everything into your PATH.
 
 You should now be ready to build the setup with:
 

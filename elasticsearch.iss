@@ -10,8 +10,8 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "0.90.3"
-#define LuceneVersion "4.4.0"
+#define AppVersion "0.90.11"
+#define LuceneVersion "4.6.1"
 #define PrunsrvVersion "1.0.15"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
@@ -91,7 +91,6 @@ Source: "{#ESPath}\config\logging.yml"; DestDir: "{app}\config"
 Source: "{#ESPath}\README.textile"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
 Source: "{#ESPath}\NOTICE.txt"; DestDir: "{app}"
 Source: "{#ESPath}\LICENSE.txt"; DestDir: "{app}"
-Source: "elasticsearchw.jar"; DestDir: "{app}\lib"
 Source: "elasticsearchw-update.cmd"; DestDir: "{app}\lib"
 Source: "elasticsearchw-uninstall.cmd"; DestDir: "{app}\lib"
 Source: "elasticsearch Home.url"; DestDir: "{app}"

@@ -1,6 +1,6 @@
 X64?= false
 
-ES_VERSION=0.90.3
+ES_VERSION=0.90.11
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -29,13 +29,6 @@ all: 32bit 64bit
 64bit:
 	@X64=true $(MAKE) setup
 
-jar: elasticsearchw.jar
-
-elasticsearchw.jar: src/org/elasticsearch/service/*.java
-	mkdir -p out
-	javac -d out -target 6 -source 6 -cp "$(ES_LIB)/elasticsearch-$(ES_VERSION).jar" src/org/elasticsearch/service/*.java	
-	jar cvf $@ -C out .
-
 setup-helper.dll: src/setup-helper.c
 	gcc -o $@ -shared -std=gnu99 -pedantic -Os -Wall -m32 -Wl,--kill-at $< -lnetapi32 -ladvapi32 -luserenv
 	strip $@
@@ -46,7 +39,7 @@ setup-helper-console.exe: src/setup-helper-console.c src/setup-helper.c
 	gcc -o $@ -std=gnu99 -pedantic -Os -Wall -m32 src/setup-helper-console.c -lnetapi32 -ladvapi32 -luserenv
 	strip $@
 
-setup: setup-helper.dll vendor jar
+setup: setup-helper.dll vendor 
 	$(ISCC) elasticsearch.iss $(ISCCOPT)
 
 vendor: $(ES_JAR) $(COMMONS_DAEMON_PRUNSRV)
