@@ -10,8 +10,8 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "1.0.1"
-#define LuceneVersion "4.6.1"
+#define AppVersion "1.1.0"
+#define LuceneVersion "4.7.0"
 #define PrunsrvVersion "1.0.15"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
@@ -66,7 +66,7 @@ Source: "{#ESPath}\bin\elasticsearch.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\lib\elasticsearch-{#AppVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jna-3.3.0.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\jts-1.12.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\jts-1.13.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\log4j-1.2.17.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-analyzers-common-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-codecs-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
@@ -81,7 +81,7 @@ Source: "{#ESPath}\lib\lucene-queryparser-{#LuceneVersion}.jar"; DestDir: "{app}
 Source: "{#ESPath}\lib\lucene-sandbox-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-spatial-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-suggest-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\spatial4j-0.3.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\spatial4j-0.4.1.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\sigar\sigar-1.6.4.jar"; DestDir: "{app}\lib\sigar"
 Source: "{#ESPath}\lib\sigar\sigar-amd64-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion
 Source: "{#ESPath}\lib\sigar\sigar-x86-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion
