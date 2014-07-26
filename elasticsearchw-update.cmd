@@ -50,6 +50,8 @@ REM The path to the heap dump location, note directory must exists and have enou
 REM space for a full heap dump.
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:HeapDumpPath=$ES_HOME/logs/heapdump.hprof
 
+REM Disables explicit GC
+set JAVA_OPTS=%JAVA_OPTS% -XX:+DisableExplicitGC
 
 set JVM_CLASSPATH=%ES_LIB%\*;%ES_LIB%\sigar\*
 
