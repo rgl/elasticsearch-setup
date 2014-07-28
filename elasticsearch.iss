@@ -12,18 +12,15 @@
 #define ServiceName "elasticsearch"
 #define AppVersion "1.3.0"
 #define LuceneVersion "4.9.0"
-#define PrunsrvVersion "1.0.15"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
 #define ArchitecturesInstallIn64BitMode "x64"
 #define ArchitecturesAllowed "x64"
-#define Prunsrv "amd64\prunsrv.exe"
 #else
 #define Bits "32"
 #define ArchitecturesInstallIn64BitMode
 #define ArchitecturesAllowed "x86 x64"
-#define Prunsrv "prunsrv.exe"
 #endif
 
 [Setup]
@@ -61,7 +58,7 @@ Name: "{app}\logs"
 [Files]
 Source: "setup-helper.dll"; DestDir: "{app}"
 Source: "vendor\SetACL-2.2.0\SetACL.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall ignoreversion
-Source: "vendor\commons-daemon-{#PrunsrvVersion}-bin-windows\{#Prunsrv}"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
+Source: "{#ESPath}\bin\elasticsearchw-{#Bits}.exe"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
 Source: "{#ESPath}\bin\elasticsearch.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\lib\elasticsearch-{#AppVersion}.jar"; DestDir: "{app}\lib"

@@ -17,6 +17,8 @@ COMMONS_DAEMON_PRUNSRV=$(COMMONS_DAEMON_HOME)/amd64/prunsrv.exe
 ES_BITS=64
 endif
 
+ES_SERVICE_EXE=$(ES_HOME)/bin/elasticsearchw-$(ES_BITS).exe
+
 ES_SERVICE_UPDATE_CMD_SRC=elasticsearchw-update.cmd
 ES_SERVICE_UPDATE_CMD=$(ES_HOME)/lib/elasticsearchw-update-$(ES_BITS).cmd
 
@@ -44,7 +46,7 @@ setup-helper-console.exe: src/setup-helper-console.c src/setup-helper.c
 	gcc -o $@ -std=gnu99 -pedantic -Os -Wall -m32 src/setup-helper-console.c -lnetapi32 -ladvapi32 -luserenv
 	strip $@
 
-setup: setup-helper.dll vendor $(ES_SERVICE_UPDATE_CMD)
+setup: setup-helper.dll vendor $(ES_SERVICE_UPDATE_CMD) $(ES_SERVICE_EXE)
 	$(ISCC) elasticsearch.iss $(ISCCOPT)
 
 vendor: $(ES_JAR) $(COMMONS_DAEMON_PRUNSRV)
@@ -54,6 +56,11 @@ $(ES_SERVICE_UPDATE_CMD): $(ES_SERVICE_UPDATE_CMD_SRC)
 		-e "s,@@ES_VERSION@@,$(ES_VERSION),g" \
 		-e "s,@@JVM@@,auto,g" \
 		$(ES_SERVICE_UPDATE_CMD_SRC) > $(ES_SERVICE_UPDATE_CMD)
+
+$(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV)
+	cp $(COMMONS_DAEMON_PRUNSRV) $(ES_SERVICE_EXE).tmp
+	vendor/verpatch-1.0.10/verpatch $(ES_SERVICE_EXE).tmp $(ES_VERSION) //fn //high //s description "Elasticsearch v$(ES_VERSION) ($(ES_BITS)-bit)"
+	mv $(ES_SERVICE_EXE).tmp $(ES_SERVICE_EXE)
 
 $(ES_JAR):
 	wget -O $(ES_HOME).zip http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$(ES_VERSION).zip
