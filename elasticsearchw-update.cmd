@@ -2,6 +2,8 @@
 setlocal
 
 set SERVICE_NAME=elasticsearch
+set ES_VERSION=@@ES_VERSION@@
+set ES_BITS=@@ES_BITS@@
 for %%I in ("%~dp0..") do set ES_HOME=%%~dpfI
 set ES_LIB=%ES_HOME%\lib
 set PRUNSRV=%ES_HOME%\bin\%SERVICE_NAME%w
@@ -56,7 +58,8 @@ set JAVA_OPTS=%JAVA_OPTS% -XX:+DisableExplicitGC
 set JVM_CLASSPATH=%ES_LIB%\*;%ES_LIB%\sigar\*
 
 "%PRUNSRV%" //US//%SERVICE_NAME% ^
-  --Jvm=auto ^
+  --Jvm "@@JVM@@" ^
+  --DisplayName "Elasticsearch v%ES_VERSION% (%ES_BITS%-bit)" ^
   --StdOutput auto ^
   --StdError auto ^
   --LogPath "%ES_HOME%\logs" ^

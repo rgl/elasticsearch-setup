@@ -11,9 +11,14 @@ COMMONS_DAEMON_NAME=commons-daemon-$(COMMONS_DAEMON_VERSION)-bin-windows
 COMMONS_DAEMON_HOME=vendor/$(COMMONS_DAEMON_NAME)
 ifeq ($(X64),false)
 COMMONS_DAEMON_PRUNSRV=$(COMMONS_DAEMON_HOME)/prunsrv.exe
+ES_BITS=32
 else
 COMMONS_DAEMON_PRUNSRV=$(COMMONS_DAEMON_HOME)/amd64/prunsrv.exe
+ES_BITS=64
 endif
+
+ES_SERVICE_UPDATE_CMD_SRC=elasticsearchw-update.cmd
+ES_SERVICE_UPDATE_CMD=$(ES_HOME)/lib/elasticsearchw-update-$(ES_BITS).cmd
 
 ISCC?= '/c/Program Files (x86)/Inno Setup 5/ISCC.exe'
 
@@ -39,10 +44,16 @@ setup-helper-console.exe: src/setup-helper-console.c src/setup-helper.c
 	gcc -o $@ -std=gnu99 -pedantic -Os -Wall -m32 src/setup-helper-console.c -lnetapi32 -ladvapi32 -luserenv
 	strip $@
 
-setup: setup-helper.dll vendor 
+setup: setup-helper.dll vendor $(ES_SERVICE_UPDATE_CMD)
 	$(ISCC) elasticsearch.iss $(ISCCOPT)
 
 vendor: $(ES_JAR) $(COMMONS_DAEMON_PRUNSRV)
+
+$(ES_SERVICE_UPDATE_CMD): $(ES_SERVICE_UPDATE_CMD_SRC)
+	sed -e "s,@@ES_BITS@@,$(ES_BITS),g" \
+		-e "s,@@ES_VERSION@@,$(ES_VERSION),g" \
+		-e "s,@@JVM@@,auto,g" \
+		$(ES_SERVICE_UPDATE_CMD_SRC) > $(ES_SERVICE_UPDATE_CMD)
 
 $(ES_JAR):
 	wget -O $(ES_HOME).zip http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$(ES_VERSION).zip

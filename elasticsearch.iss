@@ -95,7 +95,7 @@ Source: "{#ESPath}\config\logging.yml"; DestDir: "{app}\config"
 Source: "{#ESPath}\README.textile"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
 Source: "{#ESPath}\NOTICE.txt"; DestDir: "{app}"
 Source: "{#ESPath}\LICENSE.txt"; DestDir: "{app}"
-Source: "elasticsearchw-update.cmd"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\elasticsearchw-update-{#Bits}.cmd"; DestDir: "{app}\lib"; DestName: "elasticsearchw-update.cmd"
 Source: "elasticsearchw-uninstall.cmd"; DestDir: "{app}\lib"
 Source: "elasticsearch Home.url"; DestDir: "{app}"
 Source: "elasticsearch Setup Home.url"; DestDir: "{app}"
