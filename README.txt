@@ -1,6 +1,6 @@
 Download the binaries from:
 
-  http://ruilopes.com/elasticsearch-setup/
+  https://github.com/rgl/elasticsearch-setup/releases
 
 ------
 
