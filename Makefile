@@ -5,16 +5,22 @@ ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
 ES_JAR=$(ES_LIB)/$(ES_NAME).jar
+ifeq ($(X64),false)
+ES_BITS=32
+else
+ES_BITS=64
+endif
+
+JRE_HOME=vendor/jre-$(ES_BITS)/jre
+JRE=$(JRE_HOME)/bin/java.exe
 
 COMMONS_DAEMON_VERSION=1.0.15
 COMMONS_DAEMON_NAME=commons-daemon-$(COMMONS_DAEMON_VERSION)-bin-windows
 COMMONS_DAEMON_HOME=vendor/$(COMMONS_DAEMON_NAME)
 ifeq ($(X64),false)
 COMMONS_DAEMON_PRUNSRV=$(COMMONS_DAEMON_HOME)/prunsrv.exe
-ES_BITS=32
 else
 COMMONS_DAEMON_PRUNSRV=$(COMMONS_DAEMON_HOME)/amd64/prunsrv.exe
-ES_BITS=64
 endif
 
 ES_SERVICE_EXE=$(ES_HOME)/bin/elasticsearchw-$(ES_BITS).exe
@@ -49,12 +55,11 @@ setup-helper-console.exe: src/setup-helper-console.c src/setup-helper.c
 setup: setup-helper.dll vendor $(ES_SERVICE_UPDATE_CMD) $(ES_SERVICE_EXE)
 	$(ISCC) elasticsearch.iss $(ISCCOPT)
 
-vendor: $(ES_JAR) $(COMMONS_DAEMON_PRUNSRV)
+vendor: $(ES_JAR) $(COMMONS_DAEMON_PRUNSRV) $(JRE)
 
 $(ES_SERVICE_UPDATE_CMD): $(ES_SERVICE_UPDATE_CMD_SRC)
 	sed -e "s,@@ES_BITS@@,$(ES_BITS),g" \
 		-e "s,@@ES_VERSION@@,$(ES_VERSION),g" \
-		-e "s,@@JVM@@,auto,g" \
 		$(ES_SERVICE_UPDATE_CMD_SRC) > $(ES_SERVICE_UPDATE_CMD)
 
 $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV)
@@ -72,10 +77,17 @@ $(COMMONS_DAEMON_PRUNSRV):
 	(cd vendor && md5sum -c $(COMMONS_DAEMON_NAME).zip.md5)
 	unzip -d $(COMMONS_DAEMON_HOME) $(COMMONS_DAEMON_HOME).zip
 
+$(JRE):
+	@printf "\n\nyou must manually download JRE by running the following commands:\n\n"
+	@phantomjs jre.js
+	@printf "\n\n"
+	@false
+
 clean:
 	rm -rf $(ES_HOME){,.zip}
 	rm -rf $(COMMONS_DAEMON_HOME){,.zip}
 	rm -rf out
 	rm -f *.{jar,exe,dll}
+	rm -rf vendor/jre-{32,64}
 
 .PHONY: all jar setup vendor clean 32bit 64bit

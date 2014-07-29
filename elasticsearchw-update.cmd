@@ -57,8 +57,12 @@ set JAVA_OPTS=%JAVA_OPTS% -XX:+DisableExplicitGC
 
 set JVM_CLASSPATH=%ES_LIB%\*;%ES_LIB%\sigar\*
 
+set JVM=auto
+if exist "%ES_HOME%\jre\bin\server\jvm.dll" set JVM=%ES_HOME%\jre\bin\server\jvm.dll
+if exist "%ES_HOME%\jre\bin\client\jvm.dll" set JVM=%ES_HOME%\jre\bin\client\jvm.dll
+
 "%PRUNSRV%" //US//%SERVICE_NAME% ^
-  --Jvm "@@JVM@@" ^
+  --Jvm "%JVM%" ^
   --DisplayName "Elasticsearch v%ES_VERSION% (%ES_BITS%-bit)" ^
   --StdOutput auto ^
   --StdError auto ^
@@ -78,7 +82,7 @@ rem These settings are saved in the Windows Registry at:
 rem
 rem    HKEY_LOCAL_MACHINE\SOFTWARE\Apache Software Foundation\Procrun 2.0\elasticsearch
 rem
-rem OR, on windows 64-bit when running procrun 32-bit, at:
+rem OR, on windows 64-bit procrun always uses the 32-bit registry at:
 rem
 rem    HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Apache Software Foundation\Procrun 2.0\elasticsearch
 rem

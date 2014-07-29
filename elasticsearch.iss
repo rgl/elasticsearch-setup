@@ -12,6 +12,7 @@
 #define ServiceName "elasticsearch"
 #define AppVersion "1.3.1"
 #define LuceneVersion "4.9.0"
+#define JreVersion "8u11"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
@@ -37,7 +38,7 @@ AppUpdatesURL=https://github.com/rgl/elasticsearch-setup
 DefaultDirName={pf}\elasticsearch
 DefaultGroupName=elasticsearch
 OutputDir=.
-OutputBaseFilename=elasticsearch-{#AppVersion}-setup-{#Bits}-bit
+OutputBaseFilename=elasticsearch-{#AppVersion}-jre-{#JreVersion}-setup-{#Bits}-bit
 SetupIconFile=elasticsearch.ico
 Compression=lzma2/max
 SolidCompression=yes
@@ -97,6 +98,7 @@ Source: "elasticsearchw-uninstall.cmd"; DestDir: "{app}\lib"
 Source: "elasticsearch Home.url"; DestDir: "{app}"
 Source: "elasticsearch Setup Home.url"; DestDir: "{app}"
 Source: "elasticsearch Guide.url"; DestDir: "{app}"
+Source: "vendor\jre-{#Bits}\jre\*"; DestDir: "{app}\jre"; Flags: recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\elasticsearch Home"; Filename: "{app}\elasticsearch Home.url"
@@ -142,9 +144,10 @@ end;
 
 function InitializeSetup(): boolean;
 begin
-  Result := RequireJava('1.6');
-  if not Result then
-    Exit;
+  //NB we now bundle JRE; so no need to check for this.
+  //Result := RequireJava('1.6');
+  //if not Result then
+  //  Exit;
 
   if IsServiceRunning(SERVICE_NAME) then
   begin

@@ -21,6 +21,10 @@ And then install the TDM64 bundle from:
 
     http://tdm-gcc.tdragon.net/
 
+And then install PhantomJS from:
+
+    http://phantomjs.org/
+
 And add everything into your PATH.
 
 You should now be ready to build the setup with:
