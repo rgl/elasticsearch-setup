@@ -34,7 +34,7 @@ ifneq ($(X64),false)
 ISCCOPT+= -d_WIN64
 endif
 
-all: 32bit 64bit
+all: 64bit
 
 32bit:
 	@X64=false $(MAKE) setup
