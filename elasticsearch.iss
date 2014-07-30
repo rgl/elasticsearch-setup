@@ -93,6 +93,7 @@ Source: "{#ESPath}\config\logging.yml"; DestDir: "{app}\config"
 Source: "{#ESPath}\README.textile"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
 Source: "{#ESPath}\NOTICE.txt"; DestDir: "{app}"
 Source: "{#ESPath}\LICENSE.txt"; DestDir: "{app}"
+Source: "{#ESPath}\lib\elasticsearch-cmd.cmd"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\elasticsearchw-update-{#Bits}.cmd"; DestDir: "{app}\lib"; DestName: "elasticsearchw-update.cmd"
 Source: "elasticsearchw-uninstall.cmd"; DestDir: "{app}\lib"
 Source: "Elasticsearch Home.url"; DestDir: "{app}"
@@ -121,6 +122,7 @@ Filename: "{app}\lib\elasticsearchw-uninstall.cmd"; WorkingDir: "{app}"; Flags: 
 #include "service.pas"
 #include "service-account.pas"
 #include "java.pas"
+#include "shortcut.pas"
 
 const
   SERVICE_ACCOUNT_NAME = '{#ServiceAccountName}';
@@ -174,6 +176,9 @@ var
   ServicePath: string;
   Password: string;
   Status: integer;
+  CmdPath: string;
+  IconPath: string;
+  WorkingDirectoryPath: string;
 begin
   case CurStep of
     ssInstall:
@@ -199,6 +204,14 @@ begin
         begin
           MsgBox('Failed to install the ' + SERVICE_NAME + ' service.' #13#13 'You need to install it manually.', mbError, MB_OK)
         end
+      end;
+    ssPostInstall:
+      begin
+        CmdPath := ExpandConstant('{app}\lib\elasticsearch-cmd.cmd');
+        IconPath := ExpandConstant('{uninstallexe}');
+        WorkingDirectoryPath := ExpandConstant('{app}');
+        CreateShortcut(ExpandConstant('{app}\bin\Elasticsearch Command Prompt.lnk'), CmdPath, IconPath, WorkingDirectoryPath, True);
+        CreateShortcut(ExpandConstant('{group}\Elasticsearch Command Prompt.lnk'), CmdPath, IconPath, WorkingDirectoryPath, True);
       end
   end
 end;
@@ -210,6 +223,9 @@ begin
   case CurUninstallStep of
     usPostUninstall:
       begin
+        DeleteFile(ExpandConstant('{app}\bin\Elasticsearch Command Prompt.lnk'));
+        DeleteFile(ExpandConstant('{group}\Elasticsearch Command Prompt.lnk'));
+
         // NB the service should already be uinstalled (by elasticsearchw-uninstall.cmd)
 
         Status := DestroyServiceAccount(SERVICE_ACCOUNT_NAME);
