@@ -28,15 +28,15 @@
 ArchitecturesInstallIn64BitMode={#ArchitecturesInstallIn64BitMode}
 ArchitecturesAllowed={#ArchitecturesAllowed}
 AppID={{BBFE3D83-0850-4E17-8BCC-860945E4F485}
-AppName=elasticsearch
+AppName=Elasticsearch
 AppVersion={#AppVersion}
 VersionInfoVersion={#AppVersion}
 AppPublisher=rgl
 AppPublisherURL=https://github.com/rgl/elasticsearch-setup
 AppSupportURL=https://github.com/rgl/elasticsearch-setup
 AppUpdatesURL=https://github.com/rgl/elasticsearch-setup
-DefaultDirName={pf}\elasticsearch
-DefaultGroupName=elasticsearch
+DefaultDirName={pf}\Elasticsearch
+DefaultGroupName=Elasticsearch
 OutputDir=.
 OutputBaseFilename=elasticsearch-{#AppVersion}-jre-{#JreVersion}-setup-{#Bits}-bit
 SetupIconFile=elasticsearch.ico
@@ -95,18 +95,18 @@ Source: "{#ESPath}\NOTICE.txt"; DestDir: "{app}"
 Source: "{#ESPath}\LICENSE.txt"; DestDir: "{app}"
 Source: "{#ESPath}\lib\elasticsearchw-update-{#Bits}.cmd"; DestDir: "{app}\lib"; DestName: "elasticsearchw-update.cmd"
 Source: "elasticsearchw-uninstall.cmd"; DestDir: "{app}\lib"
-Source: "elasticsearch Home.url"; DestDir: "{app}"
-Source: "elasticsearch Setup Home.url"; DestDir: "{app}"
-Source: "elasticsearch Guide.url"; DestDir: "{app}"
+Source: "Elasticsearch Home.url"; DestDir: "{app}"
+Source: "Elasticsearch Setup Home.url"; DestDir: "{app}"
+Source: "Elasticsearch Guide.url"; DestDir: "{app}"
 Source: "vendor\jre-{#Bits}\jre\*"; DestDir: "{app}\jre"; Flags: recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\elasticsearch Home"; Filename: "{app}\elasticsearch Home.url"
-Name: "{group}\elasticsearch Setup Home"; Filename: "{app}\elasticsearch Setup Home.url"
-Name: "{group}\elasticsearch Guide"; Filename: "{app}\elasticsearch Guide.url"
-Name: "{group}\elasticsearch Read Me"; Filename: "{app}\README.txt"
-Name: "{group}\elasticsearch License"; Filename: "{app}\LICENSE.txt"
-Name: "{group}\Uninstall elasticsearch"; Filename: "{uninstallexe}"
+Name: "{group}\Elasticsearch Home"; Filename: "{app}\Elasticsearch Home.url"
+Name: "{group}\Elasticsearch Setup Home"; Filename: "{app}\Elasticsearch Setup Home.url"
+Name: "{group}\Elasticsearch Guide"; Filename: "{app}\Elasticsearch Guide.url"
+Name: "{group}\Elasticsearch Read Me"; Filename: "{app}\README.txt"
+Name: "{group}\Elasticsearch License"; Filename: "{app}\LICENSE.txt"
+Name: "{group}\Uninstall Elasticsearch"; Filename: "{uninstallexe}"
 
 [Run]
 Filename: "{tmp}\SetACL.exe"; Parameters: "-on config -ot file -actn setprot -op ""dacl:p_nc;sacl:p_nc"" -actn ace -ace ""n:Administrators;p:full"" -ace ""n:{#ServiceAccountName};p:read"""; WorkingDir: "{app}"; Flags: runhidden;
