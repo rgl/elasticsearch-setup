@@ -72,6 +72,7 @@ $(ES_SERVICE_UPDATE_CMD): $(ES_SERVICE_UPDATE_CMD_SRC)
 $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV)
 	cp $(COMMONS_DAEMON_PRUNSRV) $(ES_SERVICE_EXE).tmp
 	vendor/verpatch-1.0.10/verpatch $(ES_SERVICE_EXE).tmp $(ES_VERSION) //fn //high //s description "Elasticsearch v$(ES_VERSION) ($(ES_BITS)-bit)"
+	SetExecutableIcon elasticsearch.ico $(ES_SERVICE_EXE).tmp
 	mv $(ES_SERVICE_EXE).tmp $(ES_SERVICE_EXE)
 
 $(ES_JAR):
