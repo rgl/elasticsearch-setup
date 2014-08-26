@@ -25,5 +25,10 @@ echo Install a plugin, e.g. Marvel:
 echo.
 echo     plugin install elasticsearch/marvel/latest
 echo.
+echo NB if you want to disable the Marvel agent type:
+echo.
+echo     echo.^>^> config\elasticsearch.yml
+echo     echo marvel.agent.enabled: false^>^> config\elasticsearch.yml
+echo.
 
 cmd /k "cd %ES_HOME%"
