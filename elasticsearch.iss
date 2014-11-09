@@ -10,9 +10,9 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "1.3.4"
-#define LuceneVersion "4.9.1"
-#define JreVersion "8u20"
+#define AppVersion "1.4.0"
+#define LuceneVersion "4.10.2"
+#define JreVersion "8u25"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
@@ -60,7 +60,6 @@ Name: "{app}\logs"
 Source: "setup-helper.dll"; DestDir: "{app}"
 Source: "vendor\SetACL-2.2.0\SetACL.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall ignoreversion
 Source: "{#ESPath}\bin\elasticsearchw-{#Bits}.exe"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
-Source: "{#ESPath}\bin\elasticsearch.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\lib\elasticsearch-{#AppVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\antlr-runtime-3.5.jar"; DestDir: "{app}\lib"
@@ -71,7 +70,6 @@ Source: "{#ESPath}\lib\jna-4.1.0.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jts-1.13.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\log4j-1.2.17.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-analyzers-common-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-codecs-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-core-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-expressions-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\lucene-grouping-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
