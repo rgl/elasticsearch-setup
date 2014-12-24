@@ -27,6 +27,7 @@ REM set JVM_OPTIONS=%JVM_OPTIONS% -XX:+AggressiveOpts
 
 REM Enable reference compression, reducing memory overhead on 64bit JVMs
 REM    - Disabled by default as it is not stable for Sun JVM before 6u19
+REM    - Enabled by default for JVM 6u23+ when JVM_MX < 32GB
 REM set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCompressedOops
 
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseParNewGC
@@ -53,7 +54,10 @@ REM space for a full heap dump.
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:HeapDumpPath=$ES_HOME/logs/heapdump.hprof
 
 REM Disables explicit GC
-set JAVA_OPTS=%JAVA_OPTS% -XX:+DisableExplicitGC
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:+DisableExplicitGC
+
+REM Ensure UTF-8 encoding by default (e.g. filenames)
+set JVM_OPTIONS=%JVM_OPTIONS% -Dfile.encoding=UTF-8
 
 set JVM_CLASSPATH=%ES_LIB%\*;%ES_LIB%\sigar\*
 
