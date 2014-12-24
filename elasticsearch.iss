@@ -84,8 +84,11 @@ Source: "{#ESPath}\lib\lucene-spatial-{#LuceneVersion}.jar"; DestDir: "{app}\lib
 Source: "{#ESPath}\lib\lucene-suggest-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\spatial4j-0.4.1.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\sigar\sigar-1.6.4.jar"; DestDir: "{app}\lib\sigar"
+#ifdef _WIN64
 Source: "{#ESPath}\lib\sigar\sigar-amd64-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion
+#else
 Source: "{#ESPath}\lib\sigar\sigar-x86-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion
+#endif
 Source: "{#ESPath}\config\elasticsearch.yml"; DestDir: "{app}\config"
 Source: "{#ESPath}\config\logging.yml"; DestDir: "{app}\config"
 Source: "{#ESPath}\README.textile"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
