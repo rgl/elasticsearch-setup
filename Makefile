@@ -1,6 +1,6 @@
 X64?= false
 
-ES_VERSION=1.4.2
+ES_VERSION=1.4.4
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
