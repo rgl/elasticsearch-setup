@@ -12,8 +12,6 @@ rem Initial memory pool size in MB.
 set JVM_MS=256
 rem Maximum memory pool size in MB.
 set JVM_MX=1024
-rem Thread stack size in KB.
-set JVM_SS=256
 
 rem Other options.
 rem NB the pound (#) and semicolon (;) are separator characters.
@@ -77,7 +75,6 @@ if exist "%ES_HOME%\jre\bin\client\jvm.dll" set JVM=%ES_HOME%\jre\bin\client\jvm
   --Classpath "%JVM_CLASSPATH%" ^
   --JvmMs %JVM_MS% ^
   --JvmMx %JVM_MX% ^
-  --JvmSs %JVM_SS% ^
   --JvmOptions "" ^
   %JVM_OPTIONS: = ++JvmOptions % ^
   ++JvmOptions "-Des.path.home=%ES_HOME%"
