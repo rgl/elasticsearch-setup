@@ -10,7 +10,7 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "1.5.1"
+#define AppVersion "1.6.0"
 #define LuceneVersion "4.10.4"
 #define JreVersion "8u45"
 #define ESPath "vendor\elasticsearch-" + AppVersion
