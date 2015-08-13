@@ -10,9 +10,9 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "1.6.0"
+#define AppVersion "1.7.1"
 #define LuceneVersion "4.10.4"
-#define JreVersion "8u45"
+#define JreVersion "8u51"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
 #define Bits "64"
@@ -66,7 +66,7 @@ Source: "{#ESPath}\lib\antlr-runtime-3.5.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\apache-log4j-extras-1.2.17.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\asm-4.1.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\asm-commons-4.1.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\groovy-all-2.4.0.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\groovy-all-2.4.4.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jna-4.1.0.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\jts-1.13.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\log4j-1.2.17.jar"; DestDir: "{app}\lib"

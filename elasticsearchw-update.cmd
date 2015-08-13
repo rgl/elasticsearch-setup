@@ -40,10 +40,11 @@ REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCondCardMark
 REM GC logging options -- uncomment to enable
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCDetails
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCTimeStamps
+REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCDateStamps
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintClassHistogram
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintTenuringDistribution
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCApplicationStoppedTime
-REM JVM_OPTIONS=%JVM_OPTIONS% -Xloggc:/var/log/elasticsearch/gc.log
+REM JVM_OPTIONS=%JVM_OPTIONS% -Xloggc:%ES_HOME%/logs/gc.log
 
 REM Causes the JVM to dump its heap on OutOfMemory.
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+HeapDumpOnOutOfMemoryError
