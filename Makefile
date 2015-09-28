@@ -1,6 +1,7 @@
 X64?= false
 
-ES_VERSION=1.7.1
+ES_VERSION=1.7.2
+ES_SHA1=bbbbae8ab11d204d120e23c55c17f2987f3d78c7
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -77,7 +78,7 @@ $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV)
 
 $(ES_JAR):
 	wget -O $(ES_HOME).zip http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$(ES_VERSION).zip
-	(cd vendor && md5sum -c $(ES_NAME).zip.md5)
+	[ `openssl sha1 $(ES_HOME).zip | awk '{print $$2}'` == $(ES_SHA1) ]
 	unzip -d vendor $(ES_HOME).zip
 
 $(COMMONS_DAEMON_PRUNSRV):
