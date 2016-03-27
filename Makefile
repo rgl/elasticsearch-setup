@@ -1,7 +1,7 @@
 X64?= false
 
-ES_VERSION=1.7.2
-ES_SHA1=bbbbae8ab11d204d120e23c55c17f2987f3d78c7
+ES_VERSION=1.7.5
+ES_SHA1=1099bc16a72ee20a5bfe3dd29eb3ca257ded7f66
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
