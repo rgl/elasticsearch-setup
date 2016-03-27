@@ -19,16 +19,12 @@ echo     net start elasticsearch
 echo.
 echo View installed plugins:
 echo.
-echo     plugin --list
+echo     plugin list
 echo.
-echo Install a plugin, e.g. Marvel:
+echo Install a plugin, e.g. HQ and head:
 echo.
-echo     plugin install elasticsearch/marvel/latest
-echo.
-echo NB if you want to disable the Marvel agent type:
-echo.
-echo     echo.^>^> config\elasticsearch.yml
-echo     echo marvel.agent.enabled: false^>^> config\elasticsearch.yml
+echo     plugin install royrusso/elasticsearch-HQ
+echo     plugin install mobz/elasticsearch-head
 echo.
 
 cmd /k "cd %ES_HOME%"

@@ -19,18 +19,8 @@ rem NB the pound (#) and semicolon (;) are separator characters.
 rem Force the JVM to use IPv4 stack
 rem JVM_OPTIONS=%JVM_OPTIONS% -Djava.net.preferIPv4Stack=true
 
-REM Enable aggressive optimizations in the JVM
-REM    - Disabled by default as it might cause the JVM to crash
-REM set JVM_OPTIONS=%JVM_OPTIONS% -XX:+AggressiveOpts
-
-REM Enable reference compression, reducing memory overhead on 64bit JVMs
-REM    - Disabled by default as it is not stable for Sun JVM before 6u19
-REM    - Enabled by default for JVM 6u23+ when JVM_MX < 32GB
-REM set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCompressedOops
-
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseParNewGC
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseConcMarkSweepGC
-
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:CMSInitiatingOccupancyFraction=75
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCMSInitiatingOccupancyOnly
 
@@ -58,7 +48,10 @@ set JVM_OPTIONS=%JVM_OPTIONS% -XX:+DisableExplicitGC
 REM Ensure UTF-8 encoding by default (e.g. filenames)
 set JVM_OPTIONS=%JVM_OPTIONS% -Dfile.encoding=UTF-8
 
-set JVM_CLASSPATH=%ES_LIB%\*;%ES_LIB%\sigar\*
+REM Use our provided JNA always versus the system one
+set JVM_OPTIONS=%JVM_OPTIONS% -Djna.nosys=true
+
+set JVM_CLASSPATH=%ES_LIB%\elasticsearch-%ES_VERSION%.jar;%ES_LIB%\*
 
 set JVM=auto
 if exist "%ES_HOME%\jre\bin\server\jvm.dll" set JVM=%ES_HOME%\jre\bin\server\jvm.dll
@@ -71,12 +64,16 @@ if exist "%ES_HOME%\jre\bin\client\jvm.dll" set JVM=%ES_HOME%\jre\bin\client\jvm
   --StdError auto ^
   --LogPath "%ES_HOME%\logs" ^
   --StartPath "%ES_HOME%" ^
-  --StartMode=jvm --StartClass=org.elasticsearch.bootstrap.Elasticsearch --StartMethod=main ^
-  --StopMode=jvm --StopClass=org.elasticsearch.bootstrap.Elasticsearch --StopMethod=close ^
+  --StartMode jvm ^
+  --StartClass org.elasticsearch.bootstrap.Elasticsearch ^
+  --StartMethod main ^
+  ++StartParams start ^
+  --StopMode jvm ^
+  --StopClass org.elasticsearch.bootstrap.Elasticsearch ^
+  --StopMethod close ^
   --Classpath "%JVM_CLASSPATH%" ^
   --JvmMs %JVM_MS% ^
   --JvmMx %JVM_MX% ^
-  --JvmOptions "" ^
   %JVM_OPTIONS: = ++JvmOptions % ^
   ++JvmOptions "-Des.path.home=%ES_HOME%"
 

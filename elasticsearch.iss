@@ -10,8 +10,7 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "1.7.5"
-#define LuceneVersion "4.10.4"
+#define AppVersion "2.2.1"
 #define JreVersion "8u77"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
@@ -53,50 +52,25 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Dirs]
 Name: "{app}\bin"
 Name: "{app}\config"
+Name: "{app}\config\scripts"
 Name: "{app}\data"
 Name: "{app}\logs"
+Name: "{app}\plugins"
 
 [Files]
 Source: "setup-helper.dll"; DestDir: "{app}"
 Source: "vendor\SetACL-2.2.0\SetACL.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall ignoreversion
 Source: "{#ESPath}\bin\elasticsearchw-{#Bits}.exe"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
 Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
-Source: "{#ESPath}\lib\elasticsearch-{#AppVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\antlr-runtime-3.5.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\apache-log4j-extras-1.2.17.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\asm-4.1.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\asm-commons-4.1.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\groovy-all-2.4.4.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\jna-4.1.0.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\jts-1.13.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\log4j-1.2.17.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-analyzers-common-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-core-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-expressions-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-grouping-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-highlighter-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-join-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-memory-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-misc-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-queries-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-queryparser-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-sandbox-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-spatial-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\lucene-suggest-{#LuceneVersion}.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\spatial4j-0.4.1.jar"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\sigar\sigar-1.6.4.jar"; DestDir: "{app}\lib\sigar"
-#ifdef _WIN64
-Source: "{#ESPath}\lib\sigar\sigar-amd64-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion
-#else
-Source: "{#ESPath}\lib\sigar\sigar-x86-winnt.dll"; DestDir: "{app}\lib\sigar"; Flags: ignoreversion
-#endif
+Source: "{#ESPath}\lib\elasticsearch-cmd.cmd"; DestDir: "{app}\lib"
+Source: "{#ESPath}\lib\elasticsearchw-update-{#Bits}.cmd"; DestDir: "{app}\lib"; DestName: "elasticsearchw-update.cmd"
+Source: "{#ESPath}\lib\*.jar"; DestDir: "{app}\lib"
+Source: "{#ESPath}\modules\*"; DestDir: "{app}\modules"; Flags: recursesubdirs createallsubdirs
 Source: "{#ESPath}\config\elasticsearch.yml"; DestDir: "{app}\config"
 Source: "{#ESPath}\config\logging.yml"; DestDir: "{app}\config"
 Source: "{#ESPath}\README.textile"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
 Source: "{#ESPath}\NOTICE.txt"; DestDir: "{app}"
 Source: "{#ESPath}\LICENSE.txt"; DestDir: "{app}"
-Source: "{#ESPath}\lib\elasticsearch-cmd.cmd"; DestDir: "{app}\lib"
-Source: "{#ESPath}\lib\elasticsearchw-update-{#Bits}.cmd"; DestDir: "{app}\lib"; DestName: "elasticsearchw-update.cmd"
 Source: "elasticsearchw-uninstall.cmd"; DestDir: "{app}\lib"
 Source: "Elasticsearch Home.url"; DestDir: "{app}"
 Source: "Elasticsearch Setup Home.url"; DestDir: "{app}"
