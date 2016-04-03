@@ -1,7 +1,7 @@
 X64?= false
 
-ES_VERSION=2.2.1
-ES_SHA1=5f84cbc9c99904444c5d23a3ef06a250afba6305
+ES_VERSION=2.3.0
+ES_SHA1=e1559d357fb10a99bc508b3481b6718c6bb61a8f
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -57,7 +57,7 @@ setup-helper-console.exe: src/setup-helper-console.c src/setup-helper.c
 	strip $@
 
 setup: setup-helper.dll vendor $(ES_CMD_CMD) $(ES_SERVICE_UPDATE_CMD) $(ES_SERVICE_EXE)
-	$(ISCC) elasticsearch.iss $(ISCCOPT)
+	$(ISCC) elasticsearch.iss $(ISCCOPT) -dAppVersion=$(ES_VERSION)
 
 vendor: $(ES_JAR) $(COMMONS_DAEMON_PRUNSRV) $(JRE)
 

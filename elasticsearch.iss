@@ -10,7 +10,6 @@
 
 #define ServiceAccountName "elasticsearch"
 #define ServiceName "elasticsearch"
-#define AppVersion "2.2.1"
 #define JreVersion "8u77"
 #define ESPath "vendor\elasticsearch-" + AppVersion
 #ifdef _WIN64
