@@ -32,6 +32,8 @@ ES_SERVICE_UPDATE_CMD=$(ES_HOME)/lib/elasticsearchw-update-$(ES_BITS).cmd
 ES_CMD_CMD_SRC=elasticsearch-cmd.cmd
 ES_CMD_CMD=$(ES_HOME)/lib/elasticsearch-cmd.cmd
 
+SETEXECUTABLEICON_EXE=vendor/SetExecutableIcon.exe
+
 ISCC?= '/c/Program Files (x86)/Inno Setup 5/ISCC.exe'
 
 ifneq ($(X64),false)
@@ -70,10 +72,10 @@ $(ES_SERVICE_UPDATE_CMD): $(ES_SERVICE_UPDATE_CMD_SRC)
 		-e "s,@@ES_VERSION@@,$(ES_VERSION),g" \
 		$(ES_SERVICE_UPDATE_CMD_SRC) > $(ES_SERVICE_UPDATE_CMD)
 
-$(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV)
+$(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV) $(SETEXECUTABLEICON_EXE)
 	cp $(COMMONS_DAEMON_PRUNSRV) $(ES_SERVICE_EXE).tmp
 	vendor/verpatch-1.0.10/verpatch $(ES_SERVICE_EXE).tmp $(ES_VERSION) //fn //high //s description "Elasticsearch v$(ES_VERSION) ($(ES_BITS)-bit)"
-	SetExecutableIcon elasticsearch.ico $(ES_SERVICE_EXE).tmp
+	$(SETEXECUTABLEICON_EXE) elasticsearch.ico $(ES_SERVICE_EXE).tmp
 	mv $(ES_SERVICE_EXE).tmp $(ES_SERVICE_EXE)
 
 $(ES_JAR):
@@ -85,6 +87,9 @@ $(COMMONS_DAEMON_PRUNSRV):
 	wget -O $(COMMONS_DAEMON_HOME).zip http://apache.org/dist/commons/daemon/binaries/windows/$(COMMONS_DAEMON_NAME).zip
 	(cd vendor && md5sum -c $(COMMONS_DAEMON_NAME).zip.md5)
 	unzip -d $(COMMONS_DAEMON_HOME) $(COMMONS_DAEMON_HOME).zip
+
+$(SETEXECUTABLEICON_EXE):
+	wget -qO $@ https://github.com/rgl/SetExecutableIcon/releases/download/v0.0.1/SetExecutableIcon.exe
 
 $(JRE):
 	rm -rf vendor/jre-64
@@ -103,6 +108,7 @@ $(JRE):
 clean:
 	rm -rf $(ES_HOME){,.zip}
 	rm -rf $(COMMONS_DAEMON_HOME){,.zip}
+	rm -f $(SETEXECUTABLEICON)
 	rm -rf out
 	rm -f *.{jar,exe,dll}
 	rm -rf vendor/jre-{32,64}
