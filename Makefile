@@ -79,12 +79,12 @@ $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV) $(SETEXECUTABLEICON_EXE)
 	mv $(ES_SERVICE_EXE).tmp $(ES_SERVICE_EXE)
 
 $(ES_JAR):
-	wget -O $(ES_HOME).zip http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$(ES_VERSION).zip
+	wget -qO $(ES_HOME).zip http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$(ES_VERSION).zip
 	[ `openssl sha1 $(ES_HOME).zip | awk '{print $$2}'` == $(ES_SHA1) ]
 	unzip -d vendor $(ES_HOME).zip
 
 $(COMMONS_DAEMON_PRUNSRV):
-	wget -O $(COMMONS_DAEMON_HOME).zip http://apache.org/dist/commons/daemon/binaries/windows/$(COMMONS_DAEMON_NAME).zip
+	wget -qO $(COMMONS_DAEMON_HOME).zip http://apache.org/dist/commons/daemon/binaries/windows/$(COMMONS_DAEMON_NAME).zip
 	(cd vendor && md5sum -c $(COMMONS_DAEMON_NAME).zip.md5)
 	unzip -d $(COMMONS_DAEMON_HOME) $(COMMONS_DAEMON_HOME).zip
 
