@@ -41,7 +41,6 @@ SetupIconFile=elasticsearch.ico
 Compression=lzma2/max
 SolidCompression=yes
 WizardImageFile=wizard.bmp
-WizardImageBackColor=$000000
 WizardImageStretch=no
 WizardSmallImageFile=wizard-small.bmp
 
