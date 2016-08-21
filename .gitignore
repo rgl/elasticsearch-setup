@@ -3,3 +3,5 @@ vendor/*
 *.exe
 *.jar
 *.dll
+.vagrant/
+.vscode/
