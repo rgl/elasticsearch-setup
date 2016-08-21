@@ -87,10 +87,18 @@ $(COMMONS_DAEMON_PRUNSRV):
 	unzip -d $(COMMONS_DAEMON_HOME) $(COMMONS_DAEMON_HOME).zip
 
 $(JRE):
-	@printf "\n\nyou must manually download JRE by running the following commands:\n\n"
-	@phantomjs jre.js
-	@printf "\n\n"
-	@false
+	rm -rf vendor/jre-64
+	mkdir vendor/jre-64
+	curl \
+		--silent \
+		--insecure \
+		-L \
+		-b oraclelicense=accept-securebackup-cookie \
+		-o vendor/jre-64/server-jre-8u101-windows-x64.tar.gz \
+		http://download.oracle.com/otn-pub/java/jdk/8u101-b13/server-jre-8u101-windows-x64.tar.gz
+	tar xf vendor/jre-64/server-jre-*.tar.gz -C vendor/jre-64
+	mv vendor/jre-64/jdk*/jre vendor/jre-64
+	# NB if you need to update the JRE run phantomjs jre.js
 
 clean:
 	rm -rf $(ES_HOME){,.zip}
