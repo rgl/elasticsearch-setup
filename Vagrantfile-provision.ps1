@@ -1,5 +1,13 @@
 $ErrorActionPreference = 'Stop'
 
+# wrap the choco command (to make sure this script aborts when it fails).
+function choco {
+    &C:\ProgramData\chocolatey\bin\choco.exe @Args
+    if ($LASTEXITCODE) {
+        throw "$(@('choco')+$Args | ConvertTo-Json -Compress) failed with exit code $LASTEXITCODE"
+    }
+}
+
 # install useful applications and dependencies.
 choco install -y googlechrome
 choco install -y notepad2
