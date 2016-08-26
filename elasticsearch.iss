@@ -28,7 +28,7 @@ ArchitecturesAllowed={#ArchitecturesAllowed}
 AppID={{BBFE3D83-0850-4E17-8BCC-860945E4F485}
 AppName=Elasticsearch
 AppVersion={#AppVersion}
-VersionInfoVersion={#AppVersion}
+VersionInfoVersion={#VersionInfoVersion}
 AppPublisher=rgl
 AppPublisherURL=https://github.com/rgl/elasticsearch-setup
 AppSupportURL=https://github.com/rgl/elasticsearch-setup
@@ -59,7 +59,8 @@ Name: "{app}\plugins"
 Source: "setup-helper.dll"; DestDir: "{app}"
 Source: "vendor\SetACL-2.2.0\SetACL.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall ignoreversion
 Source: "{#ESPath}\bin\elasticsearchw-{#Bits}.exe"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
-Source: "{#ESPath}\bin\plugin.bat"; DestDir: "{app}\bin"
+Source: "{#ESPath}\bin\elasticsearch-plugin.bat"; DestDir: "{app}\bin"
+Source: "{#ESPath}\bin\elasticsearch-translog.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\lib\elasticsearch-cmd.cmd"; DestDir: "{app}\lib"
 Source: "{#ESPath}\lib\elasticsearchw-update-{#Bits}.cmd"; DestDir: "{app}\lib"; DestName: "elasticsearchw-update.cmd"
 Source: "{#ESPath}\lib\*.jar"; DestDir: "{app}\lib"

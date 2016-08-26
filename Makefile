@@ -1,7 +1,8 @@
 X64?= false
 
-ES_VERSION=2.3.5
-ES_SHA1=e870dfbeff606b25509a074ed321e72011d7b8dc
+ES_FILE_VERSION=5.0.0
+ES_VERSION=$(ES_FILE_VERSION)-alpha5
+ES_SHA1=5848ac24690fb431a6e9ad9e5bcef6a57a903b2c
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -59,7 +60,7 @@ setup-helper-console.exe: src/setup-helper-console.c src/setup-helper.c
 	strip $@
 
 setup: setup-helper.dll vendor $(ES_CMD_CMD) $(ES_SERVICE_UPDATE_CMD) $(ES_SERVICE_EXE)
-	$(ISCC) elasticsearch.iss $(ISCCOPT) -dAppVersion=$(ES_VERSION)
+	$(ISCC) elasticsearch.iss $(ISCCOPT) -dAppVersion=$(ES_VERSION) -dVersionInfoVersion=$(ES_FILE_VERSION)
 
 vendor: $(ES_JAR) $(COMMONS_DAEMON_PRUNSRV) $(JRE)
 
@@ -79,7 +80,7 @@ $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV) $(SETEXECUTABLEICON_EXE)
 	mv $(ES_SERVICE_EXE).tmp $(ES_SERVICE_EXE)
 
 $(ES_JAR):
-	wget -qO $(ES_HOME).zip http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-$(ES_VERSION).zip
+	wget -qO $(ES_HOME).zip https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/$(ES_VERSION)/elasticsearch-$(ES_VERSION).zip
 	[ `openssl sha1 $(ES_HOME).zip | awk '{print $$2}'` == $(ES_SHA1) ]
 	unzip -d vendor $(ES_HOME).zip
 

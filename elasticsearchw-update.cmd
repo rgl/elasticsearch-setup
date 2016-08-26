@@ -9,7 +9,7 @@ set ES_LIB=%ES_HOME%\lib
 set PRUNSRV=%ES_HOME%\bin\%SERVICE_NAME%w
 
 rem Initial memory pool size in MB.
-set JVM_MS=256
+set JVM_MS=1024
 rem Maximum memory pool size in MB.
 set JVM_MX=1024
 
@@ -19,13 +19,13 @@ rem NB the pound (#) and semicolon (;) are separator characters.
 rem Force the JVM to use IPv4 stack
 rem JVM_OPTIONS=%JVM_OPTIONS% -Djava.net.preferIPv4Stack=true
 
-set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseParNewGC
+rem GC configuration.
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseConcMarkSweepGC
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:CMSInitiatingOccupancyFraction=75
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCMSInitiatingOccupancyOnly
 
-REM When running under Java 7
-REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+UseCondCardMark
+rem Pre-touch memory pages used by the JVM during initialization.
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:+AlwaysPreTouch
 
 REM GC logging options -- uncomment to enable
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCDetails
@@ -51,6 +51,9 @@ set JVM_OPTIONS=%JVM_OPTIONS% -Dfile.encoding=UTF-8
 REM Use our provided JNA always versus the system one
 set JVM_OPTIONS=%JVM_OPTIONS% -Djna.nosys=true
 
+REM Flag to explicitly tell Netty to not use unsafe
+set JVM_OPTIONS=%JVM_OPTIONS% -Dio.netty.noUnsafe=true
+
 set JVM_CLASSPATH=%ES_LIB%\elasticsearch-%ES_VERSION%.jar;%ES_LIB%\*
 
 set JVM=auto
@@ -67,7 +70,6 @@ if exist "%ES_HOME%\jre\bin\client\jvm.dll" set JVM=%ES_HOME%\jre\bin\client\jvm
   --StartMode jvm ^
   --StartClass org.elasticsearch.bootstrap.Elasticsearch ^
   --StartMethod main ^
-  ++StartParams start ^
   --StopMode jvm ^
   --StopClass org.elasticsearch.bootstrap.Elasticsearch ^
   --StopMethod close ^

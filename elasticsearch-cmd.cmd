@@ -19,12 +19,11 @@ echo     net start elasticsearch
 echo.
 echo View installed plugins:
 echo.
-echo     plugin list
+echo     elasticsearch-plugin list
 echo.
-echo Install a plugin, e.g. HQ and head:
+echo Install a plugin:
 echo.
-echo     plugin install royrusso/elasticsearch-HQ
-echo     plugin install mobz/elasticsearch-head
+echo     elasticsearch-plugin install mapper-attachments
 echo.
 
 cmd /k "cd %ES_HOME%"
