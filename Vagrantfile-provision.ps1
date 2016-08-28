@@ -8,8 +8,15 @@ function choco {
     }
 }
 
-# install useful applications and dependencies.
+# install Google Chrome and some useful extensions.
+# see https://developer.chrome.com/extensions/external_extensions
 choco install -y googlechrome
+# install the JSON Formatter extension.
+# see https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa
+New-Item -Force -Path 'HKLM:Software\Wow6432Node\Google\Chrome\Extensions\bcjindcccaagfpapjjmafapmmgkkhgoa' `
+    | Set-ItemProperty -Name update_url -Value 'https://clients2.google.com/service/update2/crx'
+
+# install other useful applications and dependencies.
 choco install -y notepad2
 choco install -y baretail
 choco install -y --allow-empty-checksums dependencywalker
