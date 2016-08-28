@@ -154,11 +154,20 @@ EOF
 # build the setup.
 Bash 'cd /c/vagrant && make clean all'
 
-# install and start elasticsearch.
+# install elasticsearch.
 Start-Process `
     (dir C:\vagrant\elasticsearch-*-setup*.exe).FullName `
     '/VERYSILENT','/SUPPRESSMSGBOXES' `
     -Wait
+# install plugins.
+function Install-ElasticsearchPlugin($name) {
+    cmd /C "call ""C:\Program Files\Elasticsearch\bin\elasticsearch-plugin.bat"" install --silent $name"
+    if ($LASTEXITCODE) {
+        throw "failed to install Elasticsearch plugin $name with exit code $LASTEXITCODE"
+    }
+}
+Install-ElasticsearchPlugin 'ingest-attachment'
+# start it.
 net start elasticsearch
 
 # remove the default desktop shortcuts.
