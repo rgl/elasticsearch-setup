@@ -23,7 +23,7 @@ echo     elasticsearch-plugin list
 echo.
 echo Install a plugin:
 echo.
-echo     elasticsearch-plugin install mapper-attachments
+echo     elasticsearch-plugin install ingest-attachment
 echo.
 
 cmd /k "cd %ES_HOME%"
