@@ -83,7 +83,7 @@ function Bash($script) {
 }
 
 # install the remaining dependencies.
-Bash 'pacman --noconfirm -Sy make unzip tar'
+Bash 'pacman --noconfirm -Sy make unzip tar dos2unix'
 
 # configure the shell.
 Bash @'

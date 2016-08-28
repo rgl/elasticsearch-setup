@@ -82,7 +82,14 @@ $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV) $(SETEXECUTABLEICON_EXE)
 $(ES_JAR):
 	wget -qO $(ES_HOME).zip https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/$(ES_VERSION)/elasticsearch-$(ES_VERSION).zip
 	[ `openssl sha1 $(ES_HOME).zip | awk '{print $$2}'` == $(ES_SHA1) ]
-	unzip -d vendor $(ES_HOME).zip
+	rm -rf vendor-tmp && mkdir vendor-tmp
+	unzip -d vendor-tmp $(ES_HOME).zip
+	for batch in vendor-tmp/elasticsearch-*/bin/elasticsearch-*.bat; do \
+		sed -i -E 's,(@echo off),\1\n\nfor %%I in ("%~dp0..") do set JAVA_HOME=%%~dpfI\\jre,' "$$batch"; \
+		unix2dos "$$batch"; \
+	done
+	mv vendor-tmp/elasticsearch-* vendor
+	rmdir vendor-tmp
 
 $(COMMONS_DAEMON_PRUNSRV):
 	wget -qO $(COMMONS_DAEMON_HOME).zip http://apache.org/dist/commons/daemon/binaries/windows/$(COMMONS_DAEMON_NAME).zip
