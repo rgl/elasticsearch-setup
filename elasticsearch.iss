@@ -66,7 +66,7 @@ Source: "{#ESPath}\lib\elasticsearchw-update-{#Bits}.cmd"; DestDir: "{app}\lib";
 Source: "{#ESPath}\lib\*.jar"; DestDir: "{app}\lib"
 Source: "{#ESPath}\modules\*"; DestDir: "{app}\modules"; Flags: recursesubdirs createallsubdirs
 Source: "{#ESPath}\config\elasticsearch.yml"; DestDir: "{app}\config"
-Source: "{#ESPath}\config\logging.yml"; DestDir: "{app}\config"
+Source: "{#ESPath}\config\log4j2.properties"; DestDir: "{app}\config"
 Source: "{#ESPath}\README.textile"; DestDir: "{app}"; DestName: "README.txt"; Flags: isreadme
 Source: "{#ESPath}\NOTICE.txt"; DestDir: "{app}"
 Source: "{#ESPath}\LICENSE.txt"; DestDir: "{app}"

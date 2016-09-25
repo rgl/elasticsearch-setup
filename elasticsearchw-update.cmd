@@ -51,8 +51,14 @@ set JVM_OPTIONS=%JVM_OPTIONS% -Dfile.encoding=UTF-8
 REM Use our provided JNA always versus the system one
 set JVM_OPTIONS=%JVM_OPTIONS% -Djna.nosys=true
 
-REM Flag to explicitly tell Netty to not use unsafe
+REM Flags to keep Netty from being unsafe
 set JVM_OPTIONS=%JVM_OPTIONS% -Dio.netty.noUnsafe=true
+set JVM_OPTIONS=%JVM_OPTIONS% -Dio.netty.noKeySetOptimization=true
+
+REM log4j 2
+set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j.shutdownHookEnabled=false
+set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j2.disable.jmx=true
+set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j.skipJansi=true
 
 set JVM_CLASSPATH=%ES_LIB%\elasticsearch-%ES_VERSION%.jar;%ES_LIB%\*
 

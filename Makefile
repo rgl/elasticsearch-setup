@@ -1,8 +1,8 @@
 X64?= false
 
 ES_FILE_VERSION=5.0.0
-ES_VERSION=$(ES_FILE_VERSION)-alpha5
-ES_SHA1=5848ac24690fb431a6e9ad9e5bcef6a57a903b2c
+ES_VERSION=$(ES_FILE_VERSION)-beta1
+ES_SHA1=0cb954f29f03ee8e866899853727fdce10abe7dd
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -80,10 +80,10 @@ $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV) $(SETEXECUTABLEICON_EXE)
 	mv $(ES_SERVICE_EXE).tmp $(ES_SERVICE_EXE)
 
 $(ES_JAR):
-	wget -qO $(ES_HOME).zip https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/$(ES_VERSION)/elasticsearch-$(ES_VERSION).zip
+	wget -qO $(ES_HOME).zip https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$(ES_VERSION).zip
 	[ `openssl sha1 $(ES_HOME).zip | awk '{print $$2}'` == $(ES_SHA1) ]
 	rm -rf vendor-tmp && mkdir vendor-tmp
-	unzip -d vendor-tmp $(ES_HOME).zip
+	unzip -q -d vendor-tmp $(ES_HOME).zip
 	for batch in vendor-tmp/elasticsearch-*/bin/elasticsearch-*.bat; do \
 		sed -i -E 's,(@echo off),\1\n\nfor %%I in ("%~dp0..") do set JAVA_HOME=%%~dpfI\\jre,' "$$batch"; \
 		unix2dos "$$batch"; \
@@ -94,7 +94,7 @@ $(ES_JAR):
 $(COMMONS_DAEMON_PRUNSRV):
 	wget -qO $(COMMONS_DAEMON_HOME).zip http://apache.org/dist/commons/daemon/binaries/windows/$(COMMONS_DAEMON_NAME).zip
 	(cd vendor && md5sum -c $(COMMONS_DAEMON_NAME).zip.md5)
-	unzip -d $(COMMONS_DAEMON_HOME) $(COMMONS_DAEMON_HOME).zip
+	unzip -q -d $(COMMONS_DAEMON_HOME) $(COMMONS_DAEMON_HOME).zip
 
 $(SETEXECUTABLEICON_EXE):
 	wget -qO $@ https://github.com/rgl/SetExecutableIcon/releases/download/v0.0.1/SetExecutableIcon.exe
