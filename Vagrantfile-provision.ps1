@@ -1,20 +1,56 @@
+Set-StrictMode -Version Latest
+
 $ErrorActionPreference = 'Stop'
 
-# wrap the choco command (to make sure this script aborts when it fails).
-function choco {
-    &C:\ProgramData\chocolatey\bin\choco.exe @Args
-    if ($LASTEXITCODE) {
-        throw "$(@('choco')+$Args | ConvertTo-Json -Compress) failed with exit code $LASTEXITCODE"
-    }
+trap {
+    Write-Output "ERROR: $_"
+    Write-Output (($_.ScriptStackTrace -split '\r?\n') -replace '^(.*)$','ERROR: $1')
+    Exit 1
 }
+
+# wrap the choco command (to make sure this script aborts when it fails).
+function Start-Choco([string[]]$Arguments, [int[]]$SuccessExitCodes=@(0)) {
+    for ($n = 0; $n -lt 10; ++$n) {
+        if ($n) {
+            # NB sometimes choco fails with "The package was not found with the source(s) listed."
+            #    but normally its just really a transient "network" error.
+            Write-Host "Retrying choco install..."
+            Start-Sleep -Seconds 3
+        }
+        &C:\ProgramData\chocolatey\bin\choco.exe @Arguments `
+            | Where-Object { $_ -NotMatch '^Progress: ' }
+        if ($SuccessExitCodes -Contains $LASTEXITCODE) {
+            return
+        }
+    }
+    throw "$(@('choco')+$Arguments | ConvertTo-Json -Compress) failed with exit code $LASTEXITCODE"
+}
+function choco {
+    Start-Choco $Args
+}
+
+# install classic shell.
+New-Item -Path HKCU:Software\IvoSoft\ClassicStartMenu -Force `
+    | New-ItemProperty -Name ShowedStyle2      -Value 1 -PropertyType DWORD `
+    | Out-Null
+New-Item -Path HKCU:Software\IvoSoft\ClassicStartMenu\Settings -Force `
+    | New-ItemProperty -Name EnableStartButton -Value 1 -PropertyType DWORD `
+    | New-ItemProperty -Name SkipMetro         -Value 1 -PropertyType DWORD `
+    | Out-Null
+choco install -y classic-shell -installArgs ADDLOCAL=ClassicStartMenu
 
 # install Google Chrome and some useful extensions.
 # see https://developer.chrome.com/extensions/external_extensions
 choco install -y googlechrome
-# install the JSON Formatter extension.
-# see https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa
-New-Item -Force -Path 'HKLM:Software\Wow6432Node\Google\Chrome\Extensions\bcjindcccaagfpapjjmafapmmgkkhgoa' `
-    | Set-ItemProperty -Name update_url -Value 'https://clients2.google.com/service/update2/crx'
+@(
+    # JSON Formatter (https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa).
+    'bcjindcccaagfpapjjmafapmmgkkhgoa'
+    # uBlock Origin (https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm).
+    'cjpalhdlnbpafiamejdnhcphjbkeiagm'
+) | ForEach-Object {
+    New-Item -Force -Path "HKLM:Software\Wow6432Node\Google\Chrome\Extensions\$_" `
+        | Set-ItemProperty -Name update_url -Value 'https://clients2.google.com/service/update2/crx'
+}
 
 # install other useful applications and dependencies.
 choco install -y notepad2
@@ -22,7 +58,7 @@ choco install -y baretail
 choco install -y --allow-empty-checksums dependencywalker
 choco install -y procexp
 choco install -y phantomjs
-choco install -y --allow-empty-checksums innosetup
+choco install -y innosetup
 # for building the setup-helper.dll we need the 32-bit version
 # of the win32 libraries, for having them we have to force the
 # installation of the 32-bit mingw package.
@@ -50,17 +86,8 @@ git config --global mergetool.meld.path 'C:/Program Files (x86)/Meld/Meld.exe'
 git config --global mergetool.meld.cmd '\"C:/Program Files (x86)/Meld/Meld.exe\" --diff \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output \"$MERGED\"'
 #git config --list --show-origin
 
-# we have to manually build another version of the msys2 package
-# because the current one is broken.
-Push-Location $env:TEMP
-$p = Start-Process git 'clone','-b','update_to_20160719','https://github.com/petemounce/choco-packages' -PassThru -Wait
-if ($p.ExitCode) {
-    throw "git failed with exit code $($p.ExitCode)"
-}
-cd choco-packages/msys2
-choco pack
-choco install -y msys2 -Source $PWD
-Pop-Location
+# install msys2.
+choco install -y msys2
 
 # configure the msys2 launcher to let the shell inherith the PATH.
 $msys2BasePath = 'C:\tools\msys64'
@@ -80,7 +107,7 @@ function Bash($script) {
         # we also redirect the stderr to stdout because PowerShell
         # oddly interleaves them.
         # see https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin
-        echo 'exec 2>&1;set -eu;export PATH="/usr/bin:$PATH"' $script | &$bashPath
+        echo 'exec 2>&1;set -eu;export PATH="/usr/bin:$PATH";export HOME=/c/Users/vagrant;' $script | &$bashPath
         if ($LASTEXITCODE) {
             throw "bash execution failed with exit code $LASTEXITCODE"
         }
@@ -158,6 +185,14 @@ autocmd FileType go set smartindent cinwords=if,else,switch,for,func
 EOF
 '@
 
+# install ConEmu
+choco install -y conemu
+cp C:\vagrant\Vagrantfile-ConEmu.xml $env:APPDATA\ConEmu.xml
+reg import C:\vagrant\Vagrantfile-ConEmu.reg
+
+# install vscode.
+choco install -y visualstudiocode -params '/NoDesktopIcon /NoQuicklaunchIcon'
+
 # build the setup.
 Bash 'cd /c/vagrant && make clean all'
 
@@ -183,10 +218,16 @@ del C:\Users\Public\Desktop\*.lnk
 # add MSYS2 shortcut to the Desktop and Start Menu.
 Install-ChocolateyShortcut `
   -ShortcutFilePath "$env:USERPROFILE\Desktop\MSYS2 Bash.lnk" `
-  -TargetPath "$msys2BasePath\msys2.exe"
+  -TargetPath 'C:\Program Files\ConEmu\ConEmu64.exe' `
+  -Arguments '-run {MSYS2} -icon C:\tools\msys64\msys2.ico' `
+  -IconLocation C:\tools\msys64\msys2.ico `
+  -WorkingDirectory $env:USERPROFILE
 Install-ChocolateyShortcut `
   -ShortcutFilePath "C:\Users\All Users\Microsoft\Windows\Start Menu\Programs\MSYS2 Bash.lnk" `
-  -TargetPath "$msys2BasePath\msys2.exe"
+  -TargetPath 'C:\Program Files\ConEmu\ConEmu64.exe' `
+  -Arguments '-run {MSYS2} -icon C:\tools\msys64\msys2.ico' `
+  -IconLocation C:\tools\msys64\msys2.ico `
+  -WorkingDirectory $env:USERPROFILE
 
 # add Services shortcut to the Desktop.
 Install-ChocolateyShortcut `

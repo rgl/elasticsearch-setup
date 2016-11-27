@@ -1,0 +1,26 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\ConEmu Here]
+"Icon"="C:\\Program Files\\ConEmu\\ConEmu64.exe,0"
+[HKEY_CLASSES_ROOT\*\shell\ConEmu Here\command]
+@="\"C:\\Program Files\\ConEmu\\ConEmu64.exe\" -here -run {MSYS2} -cur_console:n"
+
+[HKEY_CLASSES_ROOT\directory\background\shell\ConEmu Here]
+"Icon"="C:\\Program Files\\ConEmu\\ConEmu64.exe,0"
+[HKEY_CLASSES_ROOT\directory\background\shell\ConEmu Here\command]
+@="\"C:\\Program Files\\ConEmu\\ConEmu64.exe\" -here -run {MSYS2} -cur_console:n"
+
+[HKEY_CLASSES_ROOT\directory\shell\ConEmu Here]
+"Icon"="C:\\Program Files\\ConEmu\\ConEmu64.exe,0"
+[HKEY_CLASSES_ROOT\directory\shell\ConEmu Here\command]
+@="\"C:\\Program Files\\ConEmu\\ConEmu64.exe\" -here -dir \"%1\" -run {MSYS2} -cur_console:n"
+
+[HKEY_CLASSES_ROOT\Drive\shell\ConEmu Here]
+"Icon"="C:\\Program Files\\ConEmu\\ConEmu64.exe,0"
+[HKEY_CLASSES_ROOT\Drive\shell\ConEmu Here\command]
+@="\"C:\\Program Files\\ConEmu\\ConEmu64.exe\" -here -dir \"%1\" -run {MSYS2} -cur_console:n"
+
+[HKEY_CLASSES_ROOT\LibraryFolder\Background\shell\ConEmu Here]
+"Icon"="C:\\Program Files\\ConEmu\\ConEmu64.exe,0"
+[HKEY_CLASSES_ROOT\LibraryFolder\Background\shell\ConEmu Here\command]
+@="\"C:\\Program Files\\ConEmu\\ConEmu64.exe\" -here -run {MSYS2} -cur_console:n"
