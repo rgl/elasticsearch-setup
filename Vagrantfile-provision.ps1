@@ -268,6 +268,20 @@ Install-ChocolateyShortcut `
 # enable show window content while dragging.
 Set-ItemProperty -Path 'HKCU:Control Panel\Desktop' -Name DragFullWindows -Value 1
 
+# show hidden files.
+Set-ItemProperty -Path HKCU:Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name Hidden -Value 1
+
+# show protected operating system files.
+Set-ItemProperty -Path HKCU:Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowSuperHidden -Value 1
+
+# show file extensions.
+Set-ItemProperty -Path HKCU:Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0
+
+# display full path in the title bar.
+New-Item -Path HKCU:Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState -Force `
+    | New-ItemProperty -Name FullPath -Value 1 -PropertyType DWORD `
+    | Out-Null
+
 # never combine the taskbar buttons.
 #
 # possibe values:
