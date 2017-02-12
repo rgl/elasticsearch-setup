@@ -39,18 +39,13 @@ New-Item -Path HKCU:Software\IvoSoft\ClassicStartMenu\Settings -Force `
     | Out-Null
 choco install -y classic-shell -installArgs ADDLOCAL=ClassicStartMenu
 
-# install Google Chrome and some useful extensions.
-# see https://developer.chrome.com/extensions/external_extensions
+# install Google Chrome.
+# see https://www.chromium.org/administrators/configuring-other-preferences
 choco install -y googlechrome
-@(
-    # JSON Formatter (https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa).
-    'bcjindcccaagfpapjjmafapmmgkkhgoa'
-    # uBlock Origin (https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm).
-    'cjpalhdlnbpafiamejdnhcphjbkeiagm'
-) | ForEach-Object {
-    New-Item -Force -Path "HKLM:Software\Wow6432Node\Google\Chrome\Extensions\$_" `
-        | Set-ItemProperty -Name update_url -Value 'https://clients2.google.com/service/update2/crx'
-}
+$chromeLocation = 'C:\Program Files (x86)\Google\Chrome\Application'
+cp -Force Vagrantfile-GoogleChrome-external_extensions.json (Get-Item "$chromeLocation\*\default_apps\external_extensions.json").FullName
+cp -Force Vagrantfile-GoogleChrome-master_preferences.json "$chromeLocation\master_preferences"
+cp -Force Vagrantfile-GoogleChrome-master_bookmarks.html "$chromeLocation\master_bookmarks.html"
 
 # install other useful applications and dependencies.
 choco install -y notepad2
@@ -220,7 +215,7 @@ function Install-ElasticsearchPlugin($name) {
 }
 Install-ElasticsearchPlugin 'ingest-attachment'
 # start it.
-net start elasticsearch
+Start-Service elasticsearch
 
 # remove the default desktop shortcuts.
 del C:\Users\Public\Desktop\*.lnk
