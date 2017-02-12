@@ -107,8 +107,8 @@ $(JRE):
 		--insecure \
 		-L \
 		-b oraclelicense=accept-securebackup-cookie \
-		-o vendor/jre-64/server-jre-8u111-windows-x64.tar.gz \
-		http://download.oracle.com/otn-pub/java/jdk/8u111-b14/server-jre-8u111-windows-x64.tar.gz
+		-o vendor/jre-64/server-jre-8u121-windows-x64.tar.gz \
+		http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/server-jre-8u121-windows-x64.tar.gz
 	tar xf vendor/jre-64/server-jre-*.tar.gz -C vendor/jre-64
 	mv vendor/jre-64/jdk*/jre vendor/jre-64
 	# NB if you need to update the JRE run phantomjs jre.js
