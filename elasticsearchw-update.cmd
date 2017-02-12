@@ -51,9 +51,10 @@ set JVM_OPTIONS=%JVM_OPTIONS% -Dfile.encoding=UTF-8
 REM Use our provided JNA always versus the system one
 set JVM_OPTIONS=%JVM_OPTIONS% -Djna.nosys=true
 
-REM Flags to keep Netty from being unsafe
+REM Flags to configure Netty
 set JVM_OPTIONS=%JVM_OPTIONS% -Dio.netty.noUnsafe=true
 set JVM_OPTIONS=%JVM_OPTIONS% -Dio.netty.noKeySetOptimization=true
+set JVM_OPTIONS=%JVM_OPTIONS% -Dio.netty.recycler.maxCapacityPerThread=0
 
 REM log4j 2
 set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j.shutdownHookEnabled=false
