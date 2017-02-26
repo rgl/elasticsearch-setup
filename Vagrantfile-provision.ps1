@@ -43,9 +43,9 @@ choco install -y classic-shell -installArgs ADDLOCAL=ClassicStartMenu
 # see https://www.chromium.org/administrators/configuring-other-preferences
 choco install -y googlechrome
 $chromeLocation = 'C:\Program Files (x86)\Google\Chrome\Application'
-cp -Force Vagrantfile-GoogleChrome-external_extensions.json (Get-Item "$chromeLocation\*\default_apps\external_extensions.json").FullName
-cp -Force Vagrantfile-GoogleChrome-master_preferences.json "$chromeLocation\master_preferences"
-cp -Force Vagrantfile-GoogleChrome-master_bookmarks.html "$chromeLocation\master_bookmarks.html"
+cp -Force c:/vagrant/Vagrantfile-GoogleChrome-external_extensions.json (Get-Item "$chromeLocation\*\default_apps\external_extensions.json").FullName
+cp -Force c:/vagrant/Vagrantfile-GoogleChrome-master_preferences.json "$chromeLocation\master_preferences"
+cp -Force c:/vagrant/Vagrantfile-GoogleChrome-master_bookmarks.html "$chromeLocation\master_bookmarks.html"
 
 # install other useful applications and dependencies.
 choco install -y notepad2
