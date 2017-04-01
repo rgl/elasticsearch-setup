@@ -36,6 +36,13 @@ REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintTenuringDistribution
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:+PrintGCApplicationStoppedTime
 REM JVM_OPTIONS=%JVM_OPTIONS% -Xloggc:%ES_HOME%/logs/gc.log
 
+REM By default, the GC log file will not rotate.
+REM By uncommenting the lines below, the GC log file
+REM will be rotated every 128MB at most 32 times.
+REM -XX:+UseGCLogFileRotation
+REM -XX:NumberOfGCLogFiles=32
+REM -XX:GCLogFileSize=128M
+
 REM Causes the JVM to dump its heap on OutOfMemory.
 set JVM_OPTIONS=%JVM_OPTIONS% -XX:+HeapDumpOnOutOfMemoryError
 REM The path to the heap dump location, note directory must exists and have enough

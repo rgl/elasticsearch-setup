@@ -59,6 +59,7 @@ Name: "{app}\plugins"
 Source: "setup-helper.dll"; DestDir: "{app}"
 Source: "vendor\SetACL-2.2.0\SetACL.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall ignoreversion
 Source: "{#ESPath}\bin\elasticsearchw-{#Bits}.exe"; DestDir: "{app}\bin"; DestName: "elasticsearchw.exe"
+Source: "{#ESPath}\bin\elasticsearch-keystore.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\bin\elasticsearch-plugin.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\bin\elasticsearch-translog.bat"; DestDir: "{app}\bin"
 Source: "{#ESPath}\lib\elasticsearch-cmd.cmd"; DestDir: "{app}\lib"
