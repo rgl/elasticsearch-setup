@@ -1,13 +1,5 @@
 Vagrant.configure(2) do |config|
-  # you first need to build the base image with:
-  # git clone https://github.com/joefitzgerald/packer-windows
-  # cd packer-windows
-  # # this will take ages so leave it running over night...
-  # packer build windows_2012_r2.json
-  # vagrant box add windows_2012_r2 windows_2012_r2_virtualbox.box
-  # cd ..
-  # then finally you vagrant up this vagrant environment. 
-  config.vm.box = "windows_2012_r2"
+  config.vm.box = "windows-2016-amd64" # see https://github.com/rgl/windows-2016-vagrant
   config.vm.provider "virtualbox" do |vb|
     vb.linked_clone = true
     vb.memory = 4096
