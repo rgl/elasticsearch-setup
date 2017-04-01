@@ -10,6 +10,10 @@ trap {
 
 # wrap the choco command (to make sure this script aborts when it fails).
 function Start-Choco([string[]]$Arguments, [int[]]$SuccessExitCodes=@(0)) {
+    $command, $commandArguments = $Arguments
+    if ($command -eq 'install') {
+        $Arguments = @($command, '--no-progress') + $commandArguments
+    }
     for ($n = 0; $n -lt 10; ++$n) {
         if ($n) {
             # NB sometimes choco fails with "The package was not found with the source(s) listed."
@@ -17,8 +21,7 @@ function Start-Choco([string[]]$Arguments, [int[]]$SuccessExitCodes=@(0)) {
             Write-Host "Retrying choco install..."
             Start-Sleep -Seconds 3
         }
-        &C:\ProgramData\chocolatey\bin\choco.exe @Arguments `
-            | Where-Object { $_ -NotMatch '^Progress: ' }
+        &C:\ProgramData\chocolatey\bin\choco.exe @Arguments
         if ($SuccessExitCodes -Contains $LASTEXITCODE) {
             return
         }

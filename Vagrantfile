@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
   end
-  config.vm.provision "shell", inline: "$env:chocolateyVersion='0.10.3'; iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex", name: "Install Chocolatey"
+  config.vm.provision "shell", inline: "$env:chocolateyVersion='0.10.5'; iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex", name: "Install Chocolatey"
   config.vm.provision "shell", path: "Vagrantfile-locale.ps1"
   config.vm.provision "shell", path: "Vagrantfile-provision.ps1"
 end
