@@ -1,8 +1,8 @@
 X64?= false
 
-ES_FILE_VERSION=5.3.0
+ES_FILE_VERSION=5.3.1
 ES_VERSION=$(ES_FILE_VERSION)
-ES_SHA1=d96a04a488eac61b9cc8db2872e31268a2c9f237
+ES_SHA1=e928a85e4b98edbd91eb0b7fe37a3e6c90b50dba
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -107,8 +107,8 @@ $(JRE):
 		--insecure \
 		-L \
 		-b oraclelicense=accept-securebackup-cookie \
-		-o vendor/jre-64/server-jre-8u121-windows-x64.tar.gz \
-		http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/server-jre-8u121-windows-x64.tar.gz
+		-o vendor/jre-64/server-jre-8u131-windows-x64.tar.gz \
+		http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-windows-x64.tar.gz
 	tar xf vendor/jre-64/server-jre-*.tar.gz -C vendor/jre-64
 	mv vendor/jre-64/jdk*/jre vendor/jre-64
 	# NB if you need to update the JRE run phantomjs jre.js
