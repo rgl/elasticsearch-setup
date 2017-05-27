@@ -1,8 +1,8 @@
 X64?= false
 
-ES_FILE_VERSION=5.3.1
+ES_FILE_VERSION=5.4.0
 ES_VERSION=$(ES_FILE_VERSION)
-ES_SHA1=e928a85e4b98edbd91eb0b7fe37a3e6c90b50dba
+ES_SHA1=6ca6f8157fe2bb6b9d07ac6c77a96a5ff366e420
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -116,7 +116,7 @@ $(JRE):
 clean:
 	rm -rf $(ES_HOME){,.zip}
 	rm -rf $(COMMONS_DAEMON_HOME){,.zip}
-	rm -f $(SETEXECUTABLEICON)
+	rm -f $(SETEXECUTABLEICON_EXE)
 	rm -rf out
 	rm -f *.{jar,exe,dll}
 	rm -rf vendor/jre-{32,64}

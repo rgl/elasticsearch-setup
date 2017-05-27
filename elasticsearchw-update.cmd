@@ -68,7 +68,7 @@ set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j.shutdownHookEnabled=false
 set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j2.disable.jmx=true
 set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j.skipJansi=true
 
-set JVM_CLASSPATH=%ES_LIB%\elasticsearch-%ES_VERSION%.jar;%ES_LIB%\*
+set JVM_CLASSPATH=%ES_LIB%\*
 
 set JVM=auto
 if exist "%ES_HOME%\jre\bin\server\jvm.dll" set JVM=%ES_HOME%\jre\bin\server\jvm.dll
