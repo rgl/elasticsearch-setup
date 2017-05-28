@@ -63,6 +63,10 @@ choco install -y innosetup
 $env:chocolateyForceX86 = 'true'
 choco install -y mingw -params '/threads:win32'
 del env:chocolateyForceX86
+# for testing whether we have correcly installed the Java
+# Cryptography Extension (JCE) Unlimited Strength Jurisdiction
+# Policy Files we need the jdk to compile a test program.
+choco install -y jdk8
 choco install -y git --params '/GitOnlyOnPath /NoAutoCrlf'
 choco install -y gitextensions
 choco install -y meld

@@ -53,6 +53,9 @@ setup-helper.dll: src/setup-helper.c
 	gcc -o $@ -shared -std=gnu99 -pedantic -Os -Wall -m32 -Wl,--kill-at $< -lnetapi32 -ladvapi32 -luserenv
 	strip $@
 
+HasUnlimitedStrength.class: src/HasUnlimitedStrength.java
+	javac -d . $<
+
 # NB when you run this outside an Administrator console, UAC will trigger
 #    because this executable has the word "setup" in its name.
 setup-helper-console.exe: src/setup-helper-console.c src/setup-helper.c
@@ -99,7 +102,7 @@ $(COMMONS_DAEMON_PRUNSRV):
 $(SETEXECUTABLEICON_EXE):
 	wget -qO $@ https://github.com/rgl/SetExecutableIcon/releases/download/v0.0.1/SetExecutableIcon.exe
 
-$(JRE):
+$(JRE): HasUnlimitedStrength.class
 	rm -rf vendor/jre-64
 	mkdir vendor/jre-64
 	curl \
@@ -111,6 +114,16 @@ $(JRE):
 		http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-windows-x64.tar.gz
 	tar xf vendor/jre-64/server-jre-*.tar.gz -C vendor/jre-64
 	mv vendor/jre-64/jdk*/jre vendor/jre-64
+	curl \
+		--silent \
+		--insecure \
+		-L \
+		-b oraclelicense=accept-securebackup-cookie \
+		-o vendor/jre-64/jce_policy-8.zip \
+		http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
+	unzip vendor/jre-64/jce_policy-8.zip -d vendor/jre-64
+	mv vendor/jre-64/UnlimitedJCEPolicy*/*.jar vendor/jre-64/jre/lib/security
+	[ "$$(./vendor/jre-64/jre/bin/java HasUnlimitedStrength)" == 'YES' ]
 	# NB if you need to update the JRE run phantomjs jre.js
 
 clean:
@@ -118,7 +131,7 @@ clean:
 	rm -rf $(COMMONS_DAEMON_HOME){,.zip}
 	rm -f $(SETEXECUTABLEICON_EXE)
 	rm -rf out
-	rm -f *.{jar,exe,dll}
+	rm -f *.{class,jar,exe,dll}
 	rm -rf vendor/jre-{32,64}
 
 .PHONY: all jar setup vendor clean 32bit 64bit

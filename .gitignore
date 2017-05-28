@@ -1,6 +1,7 @@
 out/
 vendor/*
 *.exe
+*.class
 *.jar
 *.dll
 .vagrant/
