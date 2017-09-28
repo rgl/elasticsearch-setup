@@ -1,8 +1,8 @@
 X64?= false
 
-ES_FILE_VERSION=5.4.0
+ES_FILE_VERSION=5.6.2
 ES_VERSION=$(ES_FILE_VERSION)
-ES_SHA1=6ca6f8157fe2bb6b9d07ac6c77a96a5ff366e420
+ES_SHA512=db4ec26915d2dc1673307522c168560f2ff7aa6cd3834d2d19effd398c05881b4cb2b08cbad3c8e7dd223a91ddfa2ff8401aae7ac9d69805dc1db8b88d30e393
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -84,7 +84,7 @@ $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV) $(SETEXECUTABLEICON_EXE)
 
 $(ES_JAR):
 	wget -qO $(ES_HOME).zip https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$(ES_VERSION).zip
-	[ `openssl sha1 $(ES_HOME).zip | awk '{print $$2}'` == $(ES_SHA1) ]
+	[ `openssl sha512 $(ES_HOME).zip | awk '{print $$2}'` == $(ES_SHA512) ]
 	rm -rf vendor-tmp && mkdir vendor-tmp
 	unzip -q -d vendor-tmp $(ES_HOME).zip
 	for batch in vendor-tmp/elasticsearch-*/bin/elasticsearch-*.bat; do \
@@ -110,8 +110,9 @@ $(JRE): HasUnlimitedStrength.class
 		--insecure \
 		-L \
 		-b oraclelicense=accept-securebackup-cookie \
-		-o vendor/jre-64/server-jre-8u131-windows-x64.tar.gz \
-		http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-windows-x64.tar.gz
+		-o vendor/jre-64/server-jre-8u144-windows-x64.tar.gz \
+		http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/server-jre-8u144-windows-x64.tar.gz
+	[ `openssl sha256 vendor/jre-64/server-jre-8u144-windows-x64.tar.gz | awk '{print $$2}'` == '20d5e1b2b4c789b6d0c378ffa9b2ff12448f31f0224ba482a338790cff18020a' ]
 	tar xf vendor/jre-64/server-jre-*.tar.gz -C vendor/jre-64
 	mv vendor/jre-64/jdk*/jre vendor/jre-64
 	curl \

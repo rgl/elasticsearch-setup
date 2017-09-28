@@ -49,14 +49,14 @@ REM The path to the heap dump location, note directory must exists and have enou
 REM space for a full heap dump.
 REM JVM_OPTIONS=%JVM_OPTIONS% -XX:HeapDumpPath=$ES_HOME/logs/heapdump.hprof
 
-REM Disables explicit GC
-set JVM_OPTIONS=%JVM_OPTIONS% -XX:+DisableExplicitGC
-
 REM Ensure UTF-8 encoding by default (e.g. filenames)
 set JVM_OPTIONS=%JVM_OPTIONS% -Dfile.encoding=UTF-8
 
 REM Use our provided JNA always versus the system one
 set JVM_OPTIONS=%JVM_OPTIONS% -Djna.nosys=true
+
+REM use old-style file permissions on JDK9
+set JVM_OPTIONS=%JVM_OPTIONS% -Djdk.io.permissionsUseCanonicalPath=true
 
 REM Flags to configure Netty
 set JVM_OPTIONS=%JVM_OPTIONS% -Dio.netty.noUnsafe=true
