@@ -110,20 +110,12 @@ $(JRE): HasUnlimitedStrength.class
 		--insecure \
 		-L \
 		-b oraclelicense=accept-securebackup-cookie \
-		-o vendor/jre-64/server-jre-8u144-windows-x64.tar.gz \
-		http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/server-jre-8u144-windows-x64.tar.gz
-	[ `openssl sha256 vendor/jre-64/server-jre-8u144-windows-x64.tar.gz | awk '{print $$2}'` == '20d5e1b2b4c789b6d0c378ffa9b2ff12448f31f0224ba482a338790cff18020a' ]
+		-o vendor/jre-64/server-jre-8u151-windows-x64.tar.gz \
+		http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/server-jre-8u151-windows-x64.tar.gz
+	[ `openssl sha256 vendor/jre-64/server-jre-8u151-windows-x64.tar.gz | awk '{print $$2}'` == 'eff6b2976ed0231936d484e43c564dc032f1a0b553c4b8b38ff8358ab4aaf282' ]
 	tar xf vendor/jre-64/server-jre-*.tar.gz -C vendor/jre-64
 	mv vendor/jre-64/jdk*/jre vendor/jre-64
-	curl \
-		--silent \
-		--insecure \
-		-L \
-		-b oraclelicense=accept-securebackup-cookie \
-		-o vendor/jre-64/jce_policy-8.zip \
-		http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
-	unzip vendor/jre-64/jce_policy-8.zip -d vendor/jre-64
-	mv vendor/jre-64/UnlimitedJCEPolicy*/*.jar vendor/jre-64/jre/lib/security
+	cp -p vendor/jre-64/jre/lib/security/{policy/unlimited/*,}
 	[ "$$(./vendor/jre-64/jre/bin/java HasUnlimitedStrength)" == 'YES' ]
 	# NB if you need to update the JRE run phantomjs jre.js
 
