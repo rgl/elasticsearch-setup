@@ -55,6 +55,10 @@ set JVM_OPTIONS=%JVM_OPTIONS% -Dfile.encoding=UTF-8
 REM Use our provided JNA always versus the system one
 set JVM_OPTIONS=%JVM_OPTIONS% -Djna.nosys=true
 
+REM turn off a JDK optimization that throws away stack traces for common
+REM exceptions because stack traces are important for debugging
+set JVM_OPTIONS=%JVM_OPTIONS% -XX:-OmitStackTraceInFastThrow
+
 REM use old-style file permissions on JDK9
 set JVM_OPTIONS=%JVM_OPTIONS% -Djdk.io.permissionsUseCanonicalPath=true
 
@@ -66,7 +70,6 @@ set JVM_OPTIONS=%JVM_OPTIONS% -Dio.netty.recycler.maxCapacityPerThread=0
 REM log4j 2
 set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j.shutdownHookEnabled=false
 set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j2.disable.jmx=true
-set JVM_OPTIONS=%JVM_OPTIONS% -Dlog4j.skipJansi=true
 
 set JVM_CLASSPATH=%ES_LIB%\*
 
@@ -91,7 +94,8 @@ if exist "%ES_HOME%\jre\bin\client\jvm.dll" set JVM=%ES_HOME%\jre\bin\client\jvm
   --JvmMs %JVM_MS% ^
   --JvmMx %JVM_MX% ^
   %JVM_OPTIONS: = ++JvmOptions % ^
-  ++JvmOptions "-Des.path.home=%ES_HOME%"
+  ++JvmOptions "-Des.path.home=%ES_HOME%" ^
+  ++JvmOptions "-Des.path.conf=%ES_HOME%\config"
 
 rem These settings are saved in the Windows Registry at:
 rem
