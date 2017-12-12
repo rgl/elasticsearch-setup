@@ -16,7 +16,7 @@ endif
 JRE_HOME=vendor/jre-$(ES_BITS)/jre
 JRE=$(JRE_HOME)/bin/java.exe
 
-COMMONS_DAEMON_VERSION=1.0.15
+COMMONS_DAEMON_VERSION=1.1.0
 COMMONS_DAEMON_NAME=commons-daemon-$(COMMONS_DAEMON_VERSION)-bin-windows
 COMMONS_DAEMON_HOME=vendor/$(COMMONS_DAEMON_NAME)
 ifeq ($(X64),false)
@@ -96,7 +96,7 @@ $(ES_JAR):
 
 $(COMMONS_DAEMON_PRUNSRV):
 	wget -qO $(COMMONS_DAEMON_HOME).zip http://apache.org/dist/commons/daemon/binaries/windows/$(COMMONS_DAEMON_NAME).zip
-	(cd vendor && md5sum -c $(COMMONS_DAEMON_NAME).zip.md5)
+	(cd vendor && sha512sum -c $(COMMONS_DAEMON_NAME).zip.sha512)
 	unzip -q -d $(COMMONS_DAEMON_HOME) $(COMMONS_DAEMON_HOME).zip
 
 $(SETEXECUTABLEICON_EXE):
