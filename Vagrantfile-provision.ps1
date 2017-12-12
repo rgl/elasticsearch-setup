@@ -209,12 +209,14 @@ choco install -y visualstudiocode -params '/NoDesktopIcon /NoQuicklaunchIcon'
 Bash 'cd /c/vagrant && make clean all'
 
 # install elasticsearch.
+Write-Output 'Installing Elasticsearch...'
 Start-Process `
     (dir C:\vagrant\elasticsearch-*-setup*.exe).FullName `
     '/VERYSILENT','/SUPPRESSMSGBOXES' `
     -Wait
 # install plugins.
 function Install-ElasticsearchPlugin($name) {
+    Write-Output "Installing the $name Elasticsearch plugin..."
     cmd /C "call ""C:\Program Files\Elasticsearch\bin\elasticsearch-plugin.bat"" install --silent $name"
     if ($LASTEXITCODE) {
         throw "failed to install Elasticsearch plugin $name with exit code $LASTEXITCODE"
@@ -222,6 +224,7 @@ function Install-ElasticsearchPlugin($name) {
 }
 Install-ElasticsearchPlugin 'ingest-attachment'
 # start it.
+Write-Output 'Starting Elasticsearch...'
 Start-Service elasticsearch
 
 # remove the default desktop shortcuts.
