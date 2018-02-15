@@ -10,4 +10,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: "$env:chocolateyVersion='0.10.8'; iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex", name: "Install Chocolatey"
   config.vm.provision "shell", path: "Vagrantfile-locale.ps1"
   config.vm.provision "shell", path: "Vagrantfile-provision.ps1"
+  config.vm.provision "shell", path: "Vagrantfile-provision-kibana.ps1"
 end
