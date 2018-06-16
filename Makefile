@@ -1,8 +1,8 @@
 X64?= false
 
-ES_FILE_VERSION=6.2.4
+ES_FILE_VERSION=6.3.0
 ES_VERSION=$(ES_FILE_VERSION)
-ES_SHA512=f9e261f1cd394342b78d15fa2b54124bf679642fd3fcf7c976b8c37afa340d41085cf00301a7624a54164e9478ae16bf9e1ae62997a6725688b38e0bd2586e30
+ES_SHA512=f28287021694177bed6ee5a59c4d75a010a3ce3521d0f91bf13971e3f2565d496ee9163a46a769430ecd7716404d781466e2b64101770b956fb2d10424210c45
 ES_NAME=elasticsearch-$(ES_VERSION)
 ES_HOME=vendor/$(ES_NAME)
 ES_LIB=$(ES_HOME)/lib
@@ -83,7 +83,7 @@ $(ES_SERVICE_EXE): $(COMMONS_DAEMON_PRUNSRV) $(SETEXECUTABLEICON_EXE)
 	mv $(ES_SERVICE_EXE).tmp $(ES_SERVICE_EXE)
 
 $(ES_JAR):
-	wget -qO $(ES_HOME).zip https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-$(ES_VERSION).zip
+	wget -qO $(ES_HOME).zip https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-$(ES_VERSION).zip
 	[ `openssl sha512 $(ES_HOME).zip | awk '{print $$2}'` == $(ES_SHA512) ]
 	rm -rf vendor-tmp && mkdir vendor-tmp
 	unzip -q -d vendor-tmp $(ES_HOME).zip

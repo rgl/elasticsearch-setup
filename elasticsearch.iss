@@ -90,6 +90,8 @@ Name: "{group}\Uninstall Elasticsearch"; Filename: "{uninstallexe}"
 Filename: "{tmp}\SetACL.exe"; Parameters: "-on config -ot file -actn setprot -op ""dacl:p_nc;sacl:p_nc"" -actn ace -ace ""n:Administrators;p:full"" -ace ""n:{#ServiceAccountName};p:read"""; WorkingDir: "{app}"; Flags: runhidden;
 Filename: "{tmp}\SetACL.exe"; Parameters: "-on data -ot file -actn setprot -op ""dacl:p_nc;sacl:p_nc"" -actn ace -ace ""n:Administrators;p:full"" -ace ""n:{#ServiceAccountName};p:full"""; WorkingDir: "{app}"; Flags: runhidden;
 Filename: "{tmp}\SetACL.exe"; Parameters: "-on logs -ot file -actn setprot -op ""dacl:p_nc;sacl:p_nc"" -actn ace -ace ""n:Administrators;p:full"" -ace ""n:{#ServiceAccountName};p:full"""; WorkingDir: "{app}"; Flags: runhidden;
+Filename: "{app}\bin\elasticsearch-keystore.bat"; Parameters: "create"; WorkingDir: "{app}"; Flags: runhidden shellexec waituntilterminated;
+Filename: "{tmp}\SetACL.exe"; Parameters: "-on config/elasticsearch.keystore -ot file -actn setprot -op ""dacl:p_nc;sacl:p_nc"" -actn ace -ace ""n:Administrators;p:full"" -ace ""n:{#ServiceAccountName};p:full"""; WorkingDir: "{app}"; Flags: runhidden;
 Filename: "{app}\lib\elasticsearchw-update.cmd"; WorkingDir: "{app}"; Flags: runhidden shellexec waituntilterminated;
 
 [UninstallRun]

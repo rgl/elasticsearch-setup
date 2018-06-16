@@ -1,6 +1,6 @@
 # Elasticsearch Setup
 
-This is a setup application for installing [Elasticsearch](https://www.elastic.co/products/elasticsearch)
+This is a setup application for installing [Elasticsearch (OSS flavor)](https://www.elastic.co/products/elasticsearch)
 on a Windows machine.
 
 The setup will:
@@ -17,6 +17,7 @@ The setup will:
 
  * grant the `elasticsearch` account:
      * read permissions to the `config` directory.
+     * full permissions to the `config/elasticsearch.keystore` file.
      * full permissions to the `data` and `logs` directories.
 
  * create a bunch of Start Menu entries (link to home page, guide, etc).

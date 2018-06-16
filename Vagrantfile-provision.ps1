@@ -217,7 +217,7 @@ Start-Process `
 # install plugins.
 function Install-ElasticsearchPlugin($name) {
     Write-Output "Installing the $name Elasticsearch plugin..."
-    cmd /C "call ""C:\Program Files\Elasticsearch\bin\elasticsearch-plugin.bat"" install --silent $name"
+    cmd /C "call ""C:\Program Files\Elasticsearch\bin\elasticsearch-plugin.bat"" install --batch $name"
     if ($LASTEXITCODE) {
         throw "failed to install Elasticsearch plugin $name with exit code $LASTEXITCODE"
     }

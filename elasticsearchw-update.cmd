@@ -87,6 +87,7 @@ if exist "%ES_HOME%\jre\bin\client\jvm.dll" set JVM=%ES_HOME%\jre\bin\client\jvm
   --StartMode jvm ^
   --StartClass org.elasticsearch.bootstrap.Elasticsearch ^
   --StartMethod main ^
+  --StartParams --quiet ^
   --StopMode jvm ^
   --StopClass org.elasticsearch.bootstrap.Elasticsearch ^
   --StopMethod close ^
@@ -95,7 +96,9 @@ if exist "%ES_HOME%\jre\bin\client\jvm.dll" set JVM=%ES_HOME%\jre\bin\client\jvm
   --JvmMx %JVM_MX% ^
   %JVM_OPTIONS: = ++JvmOptions % ^
   ++JvmOptions "-Des.path.home=%ES_HOME%" ^
-  ++JvmOptions "-Des.path.conf=%ES_HOME%\config"
+  ++JvmOptions "-Des.path.conf=%ES_HOME%\config" ^
+  ++JvmOptions "-Des.distribution.flavor=oss" ^
+  ++JvmOptions "-Des.distribution.type=zip"
 
 rem These settings are saved in the Windows Registry at:
 rem
