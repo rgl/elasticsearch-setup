@@ -110,9 +110,9 @@ $(JRE): HasUnlimitedStrength.class
 		--insecure \
 		-L \
 		-b oraclelicense=accept-securebackup-cookie \
-		-o vendor/jre-64/server-jre-8u172-windows-x64.tar.gz \
-		http://download.oracle.com/otn-pub/java/jdk/8u172-b11/a58eab1ec242421181065cdc37240b08/server-jre-8u172-windows-x64.tar.gz
-	[ `openssl sha256 vendor/jre-64/server-jre-8u172-windows-x64.tar.gz | awk '{print $$2}'` == '03b002d4590dba1bbc8e748c86e0bafe9981e56e68956b5c2ce6a88bef55e6f6' ]
+		-o vendor/jre-64/server-jre-8u181-windows-x64.tar.gz \
+		http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/server-jre-8u181-windows-x64.tar.gz
+	[ `openssl sha256 vendor/jre-64/server-jre-8u181-windows-x64.tar.gz | awk '{print $$2}'` == '7799b9007760663da32a3b177a0b9ea42ec268afaa69dcf8518cdce5136c3768' ]
 	tar xf vendor/jre-64/server-jre-*.tar.gz -C vendor/jre-64
 	mv vendor/jre-64/jdk*/jre vendor/jre-64
 	cp -p vendor/jre-64/jre/lib/security/{policy/unlimited/*,}
