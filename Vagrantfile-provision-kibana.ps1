@@ -58,7 +58,7 @@ $result = sc.exe config $serviceName obj= $serviceUsername
 if ($result -ne '[SC] ChangeServiceConfig SUCCESS') {
     throw "sc.exe config failed with $result"
 }
-$result = sc.exe failure $serviceName reset= 0 actions= restart/1000
+$result = sc.exe failure $serviceName reset= 0 actions= restart/60000
 if ($result -ne '[SC] ChangeServiceConfig2 SUCCESS') {
     throw "sc.exe failure failed with $result"
 }
