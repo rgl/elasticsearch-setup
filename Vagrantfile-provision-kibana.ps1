@@ -72,8 +72,8 @@ nssm set $serviceName AppRotateFiles 1
 nssm set $serviceName AppRotateOnline 1
 nssm set $serviceName AppRotateSeconds 86400
 nssm set $serviceName AppRotateBytes (10*1024*1024)
-nssm set $serviceName AppStdout $kibanaHome\logs\service.log
-nssm set $serviceName AppStderr $kibanaHome\logs\service.log
+nssm set $serviceName AppStdout $kibanaHome\logs\service-stdout.log
+nssm set $serviceName AppStderr $kibanaHome\logs\service-stderr.log
 
 choco install -y carbon
 Update-SessionEnvironment
